@@ -4,7 +4,7 @@
 #include "randomsnake.hpp"
 #include <cassert>
 
-void PlayerSnake::CalculateNextMove(unsigned const elapsedMs)
+void PlayerSnake::CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes)
 {
 	auto const& input = UserInput::GetInstance();
 	if (input.WasActionPressed(PlayerActions::MoveUp))

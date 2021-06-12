@@ -7,9 +7,9 @@ namespace Config
 {
 	COORD const consoleBufferSize{ 80, 20 }; // in characters
 
-	unsigned const ticksPerPlayerMove = 32;
+	unsigned const ticksPerPlayerMove = 64;
 
-	unsigned const ticksPerDumbMove = 32;
+	unsigned const ticksPerDumbMove = 64;
 	unsigned const ticksPerDumbChangeOrientation = 800;
 
 	Color::Color const playerHeadColor{ Color::Foreground::YELLOW, Color::Background::DARKYELLOW };

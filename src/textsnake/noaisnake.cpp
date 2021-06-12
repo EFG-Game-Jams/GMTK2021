@@ -1,7 +1,7 @@
 #include "noaisnake.hpp"
 #include "config.hpp"
 
-void NoAiSnake::CalculateNextMove(unsigned const elapsedMs)
+void NoAiSnake::CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes)
 {
 	elapsedSinceLastTick += elapsedMs;
 	if (elapsedSinceLastTick >= Config::ticksPerPlayerMove)

@@ -100,7 +100,7 @@ void PlayingField::Update(unsigned const elapsedMs)
 {
 	for (auto& snake : snakes)
 	{
-		snake->CalculateNextMove(elapsedMs);
+		snake->CalculateNextMove(elapsedMs, snakes);
 	}
 
 	bool hadCollision = false;

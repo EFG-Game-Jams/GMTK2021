@@ -45,7 +45,7 @@ public:
 	// Forces the snake to abort its next move
 	void ForceFreeze();
 
-	virtual void CalculateNextMove(unsigned const elapsedMs) = 0;
+	virtual void CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes) = 0;
 	virtual void Update();
 
 	// Other becomes new head of this, this becomes the tail

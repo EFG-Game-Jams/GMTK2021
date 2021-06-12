@@ -2,7 +2,7 @@
 #include "config.hpp"
 #include <cassert>
 
-void RandomSnake::CalculateNextMove(unsigned const elapsedMs)
+void RandomSnake::CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes)
 {
 	elapsedSinceLastDirectionChange += elapsedMs;
 	elapsedSinceLastMovement += elapsedMs;

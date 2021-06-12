@@ -6,7 +6,7 @@ private:
 	unsigned elapsedSinceLastTick;
 
 public:
-	void CalculateNextMove(unsigned const elapsedMs) override;
+	void CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes) override;
 
 	SnakeType GetType() const override;
 
