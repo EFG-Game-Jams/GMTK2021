@@ -10,28 +10,14 @@
 #include "randomsnake.hpp"
 #include "noaisnake.hpp"
 
-void MenuState::Pause()
+void MenuState::Update(unsigned const elapsedMs)
 {
-	StateStack& stateStack = StateStack::GetInstance();
-	stateStack.PushState(std::make_unique<PauseState>());
-}
-
-void MenuState::HandleInput(UserInput const& evHandler)
-{
+	UserInput& evHandler = UserInput::GetInstance();
 	if (evHandler.WasActionReleased(PlayerActions::Pause))
 	{
 		StateStack& stateStack = StateStack::GetInstance();
 		stateStack.PushState(std::make_unique<PauseState>());
 		return;
-	}
-}
-
-void MenuState::Update(unsigned const elapsedMs)
-{
-	UserInput& evHandler = UserInput::GetInstance();
-	if (evHandler.WasThereAnyAction())
-	{
-		HandleInput(evHandler);
 	}
 
 	field.Update(elapsedMs);
