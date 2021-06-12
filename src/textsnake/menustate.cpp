@@ -9,6 +9,7 @@
 #include "playersnake.hpp"
 #include "randomsnake.hpp"
 #include "noaisnake.hpp"
+#include "huntersnake.hpp"
 
 void MenuState::Update(unsigned const elapsedMs)
 {
@@ -44,6 +45,10 @@ MenuState::MenuState()
 	//spawnLocation.X = static_cast<short>(Config::consoleBufferSize.X * 0.75);
 	//spawnLocation.Y = static_cast<short>(Config::consoleBufferSize.Y * 0.33);
 	//field.snakes.emplace_back(std::make_unique<RandomSnake>(MovingDirection::South, spawnLocation, std::string("AAAAAAAA"), clearColor));
+
+	spawnLocation.X = static_cast<short>(Config::consoleBufferSize.X * 0.25);
+	spawnLocation.Y = static_cast<short>(Config::consoleBufferSize.Y * 0.75);
+	field.snakes.emplace_back(std::make_unique<HunterSnake>(GenerateLineOfSnakeBlocks(spawnLocation, MovingDirection::North, "A1B2C3", Config::hunterHeadColor, Config::hunterBodyColor), clearColor));
 }
 
 MenuState::~MenuState()

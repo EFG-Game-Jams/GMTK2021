@@ -4,5 +4,6 @@ enum class SnakeType
 {
 	Random,
 	NoAi,
+	Hunter,
 	Player
 };

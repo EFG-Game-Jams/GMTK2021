@@ -4,6 +4,7 @@
 #include <cassert>
 #include "randomsnake.hpp"
 #include "noaisnake.hpp"
+#include "huntersnake.hpp"
 
 enum class CollisionType
 {
@@ -84,6 +85,10 @@ std::unique_ptr<BaseSnake> SplitOffTailAt(BaseSnake& snake, COORD collisionPosit
 
 	case SnakeType::NoAi:
 		newSnake = std::make_unique<NoAiSnake>(newSnakeBlocks, snake.GetClearColor());
+		break;
+
+	case SnakeType::Hunter:
+		newSnake = std::make_unique<HunterSnake>(newSnakeBlocks, snake.GetClearColor());
 		break;
 	}
 
