@@ -11,38 +11,35 @@ BeepManager::BeepManager()
 	: sequenceQueue(), keepRunning(true), workerThread(workerThreadFunc, &sequenceQueue, &keepRunning)
 {
 	std::vector<Note> notes;
-	for (int i = 0; i < 5; ++i)
-	{
-		notes.push_back(Note(264, 500));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(264, 250));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(297, 1000));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(264, 1000));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(352, 1000));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(330, 2000));
-		notes.push_back(Note(0, 500));
+	notes.push_back(Note(264, 500));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(264, 250));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(297, 1000));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(264, 1000));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(352, 1000));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(330, 2000));
+	notes.push_back(Note(0, 500));
 
-		notes.push_back(Note(264, 500));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(264, 250));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(297, 1000));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(264, 1000));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(396, 1000));
-		notes.push_back(Note(0, 250));
-		notes.push_back(Note(352, 2000));
-		notes.push_back(Note(0, 500));
-	}
+	notes.push_back(Note(264, 500));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(264, 250));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(297, 1000));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(264, 1000));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(396, 1000));
+	notes.push_back(Note(0, 250));
+	notes.push_back(Note(352, 2000));
+	notes.push_back(Note(0, 500));
 
 	for (size_t i = 0; i < notes.size(); ++i)
 		notes[i].duration /= 2;
-
+	
 	Play(notes);
 }
 
@@ -132,7 +129,7 @@ bool BeepManager::Sequence::advance(Note & note)
 
 	// advance to currently playing note
 	long noteEnd = noteTimeElapsed + static_cast<long>(notes[noteIndex].duration);
-	while (noteEnd < elapsed && noteIndex < notes.size())
+	while (noteEnd < elapsed && noteIndex < notes.size() - 1)
 	{
 		noteTimeElapsed += notes[noteIndex].duration;
 		++noteIndex;
