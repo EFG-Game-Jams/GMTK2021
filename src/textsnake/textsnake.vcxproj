@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="basesnake.hpp" />
     <ClInclude Include="basestate.hpp" />
+    <ClInclude Include="beepmanager.hpp" />
     <ClInclude Include="clipboard.hpp" />
     <ClInclude Include="color.hpp" />
     <ClInclude Include="config.hpp" />
@@ -43,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="basesnake.cpp" />
+    <ClCompile Include="beepmanager.cpp" />
     <ClCompile Include="clipboard.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="config.cpp" />

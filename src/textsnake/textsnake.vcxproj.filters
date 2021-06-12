@@ -76,6 +76,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dumbsnake.hpp">
+	  <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="beepmanager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -141,6 +144,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dumbsnake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="beepmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
