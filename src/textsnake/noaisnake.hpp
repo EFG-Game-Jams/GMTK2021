@@ -1,7 +1,6 @@
 #pragma once
 #include "basesnake.hpp"
-
-class PlayerSnake : public BaseSnake
+class NoAiSnake : public BaseSnake 
 {
 private:
 	unsigned elapsedSinceLastTick;
@@ -11,6 +10,6 @@ public:
 
 	SnakeType GetType() const override;
 
-	PlayerSnake(COORD const spawnPosition, std::string const & letters, Color::Color const clearColor);
+	NoAiSnake(MovingDirection const direction, COORD const spawnPosition, std::string const& letters, Color::Color const clearColor);
 };
 

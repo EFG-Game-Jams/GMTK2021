@@ -18,7 +18,7 @@ void Game::Run(unsigned const targetFrameTime)
 		stateStack.GetTopState()->Update(targetFrameTime);
 
 		auto const sleepTime = targetFrameTime - std::chrono::duration_cast<std::chrono::milliseconds>(start - std::chrono::steady_clock::now()).count();
-		if (sleepTime > 0)
+		if (sleepTime > 0 && sleepTime <= targetFrameTime)
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
 		}
@@ -56,6 +56,14 @@ Game::Game()
 	GetConsoleCursorInfo(stdoutHandle, &cursorInfo);
 	cursorInfo.bVisible = FALSE;
 	SetConsoleCursorInfo(stdoutHandle, &cursorInfo);
+
+	// Clear the console
+	std::cout << Color::Color(); // Black
+	std::size_t const limit = Config::consoleBufferSize.X * Config::consoleBufferSize.Y;
+	for (std::size_t i = 0; i < limit; ++i)
+	{
+		std::cout << ' ';
+	}
 }
 
 Game::~Game()

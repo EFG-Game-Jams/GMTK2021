@@ -1,7 +1,8 @@
-#include "dumbsnake.hpp"
+#include "randomsnake.hpp"
 #include "config.hpp"
+#include <cassert>
 
-void DumbSnake::CalculateNextMove(unsigned const elapsedMs)
+void RandomSnake::CalculateNextMove(unsigned const elapsedMs)
 {
 	elapsedSinceLastDirectionChange += elapsedMs;
 	elapsedSinceLastMovement += elapsedMs;
@@ -55,7 +56,12 @@ void DumbSnake::CalculateNextMove(unsigned const elapsedMs)
 	}
 }
 
-DumbSnake::DumbSnake(MovingDirection const initialMovingDirection, COORD const spawnPosition, std::string const& letters, Color::Color const clearColor)
+SnakeType RandomSnake::GetType() const
+{
+	return SnakeType::Random;
+}
+
+RandomSnake::RandomSnake(MovingDirection const initialMovingDirection, COORD const spawnPosition, std::string const& letters, Color::Color const clearColor)
 	: BaseSnake(initialMovingDirection,
 		spawnPosition,
 		letters,

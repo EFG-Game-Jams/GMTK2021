@@ -9,7 +9,7 @@ namespace Config
 
 	unsigned const ticksPerPlayerMove = 32;
 
-	unsigned const ticksPerDumbMove = 48;
+	unsigned const ticksPerDumbMove = 32;
 	unsigned const ticksPerDumbChangeOrientation = 800;
 
 	Color::Color const playerHeadColor{ Color::Foreground::YELLOW, Color::Background::DARKYELLOW };

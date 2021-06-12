@@ -75,10 +75,19 @@
     <ClInclude Include="playingfield.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dumbsnake.hpp">
-	  <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="beepmanager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="randomsnake.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="movingdirection.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="snaketype.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noaisnake.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,7 +152,13 @@
     <ClCompile Include="config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dumbsnake.cpp">
+    <ClCompile Include="randomsnake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="movingdirection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="noaisnake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="beepmanager.cpp">

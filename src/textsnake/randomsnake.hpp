@@ -1,7 +1,7 @@
 #pragma once
 #include "basesnake.hpp"
 
-class DumbSnake : public BaseSnake
+class RandomSnake : public BaseSnake
 {
 private:
 	unsigned elapsedSinceLastDirectionChange, elapsedSinceLastMovement;
@@ -9,7 +9,9 @@ private:
 public:
 	void CalculateNextMove(unsigned const elapsedMs) override;
 
-	DumbSnake(MovingDirection const initialMovingDirection,
+	SnakeType GetType() const override;
+
+	RandomSnake(MovingDirection const initialMovingDirection,
 		COORD const spawnPosition,
 		std::string const& letters,
 		Color::Color const clearColor);

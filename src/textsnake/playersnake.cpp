@@ -1,8 +1,8 @@
 #include "playersnake.hpp"
 #include "userinput.hpp"
 #include "config.hpp"
-
-
+#include "randomsnake.hpp"
+#include <cassert>
 
 void PlayerSnake::CalculateNextMove(unsigned const elapsedMs)
 {
@@ -31,6 +31,11 @@ void PlayerSnake::CalculateNextMove(unsigned const elapsedMs)
 		elapsedSinceLastTick = 0;
 		nextMove = GetTranslateOffsetByCurrentDirection();
 	}
+}
+
+SnakeType PlayerSnake::GetType() const
+{
+	return SnakeType::Player;
 }
 
 PlayerSnake::PlayerSnake(
