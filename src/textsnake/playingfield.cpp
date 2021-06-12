@@ -5,6 +5,8 @@
 #include "randomsnake.hpp"
 #include "noaisnake.hpp"
 #include "huntersnake.hpp"
+#include "statestack.hpp"
+#include "gameoverstate.hpp"
 
 CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) const
 {
@@ -22,14 +24,24 @@ CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) con
 					return CollisionType::None;
 				}
 
+				if (b.GetType() == SnakeType::Player)
+				{
+					return CollisionType::PlayerKilled;
+				}
+
 				return CollisionType::HeadOnHead;
 			}
 
 			if (i == bblocks.size() - 1)
 			{
+				if (b.GetType() == SnakeType::Player)
+				{
+					return CollisionType::PlayerKilled;
+				}
+
 				if (&a == &b)
 				{
-					return CollisionType::Fatal;
+					return CollisionType::CircleCreated;
 				}
 
 				return CollisionType::HeadOnTail;
@@ -86,7 +98,14 @@ std::unique_ptr<BaseSnake> SplitOffTailAt(BaseSnake& snake, COORD collisionPosit
 		break;
 
 	case SnakeType::Hunter:
-		newSnake = std::make_unique<HunterSnake>(newSnakeBlocks, snake.GetClearColor());
+		if (Config::GetRandomDouble() < 0.1)
+		{
+			newSnake = std::make_unique<RandomSnake>(newSnakeBlocks, snake.GetClearColor());
+		}
+		else
+		{
+			newSnake = std::make_unique<HunterSnake>(newSnakeBlocks, snake.GetClearColor());
+		}
 		break;
 	}
 
@@ -136,15 +155,18 @@ void PlayingField::UpdateCollisions()
 					snakes.erase(otherSnake);
 					break;
 
-				case CollisionType::Fatal:
-					if (snake->GetType() == SnakeType::Player)
+				case CollisionType::PlayerKilled:
+					snake->ForceFreeze();
+					(*otherSnake)->ForceFreeze();
 					{
-						assert(false);
+						auto & stack = StateStack::GetInstance();
+						stack.SchedulePushState(std::make_unique<GameOverState>());
 					}
-					else
-					{
-						snake->ForceFreeze();
-					}
+					// Stop doing updates
+					return;
+
+				case CollisionType::CircleCreated:
+					snake->ForceFreeze();
 					break;
 
 				default:

@@ -9,7 +9,11 @@ void InfoState::Update(unsigned const elapsedMs)
 	field.Update(elapsedMs);
 }
 
-void InfoState::Awake()
+void InfoState::Destroy()
+{
+}
+
+void InfoState::Focus()
 {
 	if (spawnedSnakes)
 	{

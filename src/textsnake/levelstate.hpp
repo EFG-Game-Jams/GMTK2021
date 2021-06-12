@@ -1,18 +1,17 @@
 #pragma once
 #include "state.hpp"
-#include "menufield.hpp"
 
-class InfoState : public State
+class LevelState : public State
 {
 private:
-	bool spawnedSnakes;
-	MenuField field;
+	int level;
+	bool loaded;
 
 public:
 	virtual void Update(unsigned const elapsedMs) override;
 	virtual void Focus() override;
 	virtual void Destroy() override;
 
-	InfoState();
+	LevelState(int level);
 };
 

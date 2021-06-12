@@ -6,22 +6,17 @@
 void PauseState::Update(unsigned const elapsedMs)
 {
 	UserInput& evHandler = UserInput::GetInstance();
-	if (evHandler.WasActionReleased(PlayerActions::Pause) || evHandler.WasActionReleased(PlayerActions::Escape))
+	if (evHandler.WasActionReleased(PlayerActions::Pause))
 	{
-		StateStack::GetInstance().PopState();
-		return;
+		StateStack::GetInstance().SchedulePopState();
 	}
 }
 
 PauseState::PauseState()
 	: MessageState(
-		COORD{ 0, 0 },
+		COORD{ 0, Config::consoleBufferSize.Y / 2 },
 		Config::consoleBufferSize.X,
 		"Game is paused",
 		Color::Color(Color::Foreground::WHITE, Color::Background::BLUE))
-{
-}
-
-PauseState::~PauseState()
 {
 }

@@ -8,7 +8,7 @@ void MenuState::Update(unsigned const elapsedMs)
 	field.Update(elapsedMs);
 }
 
-void MenuState::Awake()
+void MenuState::Focus()
 {
 	if (spawnedSnakes)
 	{
@@ -50,11 +50,11 @@ void MenuState::Awake()
 	spawnedSnakes = true;
 }
 
-MenuState::MenuState()
-	: spawnedSnakes(false)
+void MenuState::Destroy()
 {
 }
 
-MenuState::~MenuState()
+MenuState::MenuState()
+	: spawnedSnakes(false)
 {
 }

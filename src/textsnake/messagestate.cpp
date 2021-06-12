@@ -54,23 +54,29 @@ void MessageState::DrawMessage(std::string msg, Color::Color const& color) const
 		std::cout << ' ';
 }
 
-void MessageState::Awake()
+bool MessageState::IsOverlay() const
 {
-	// chirp chirp
+	return true;
 }
 
-MessageState::MessageState(COORD const _lineStartPosition,
-	SHORT const _maxLineLength,
-	std::string const& message,
-	Color::Color const& color)
-	: lineStartPosition(_lineStartPosition),
-	maxLineLength(_maxLineLength)
+void MessageState::Focus()
 {
 	BackupContent();
 	DrawMessage(message, color);
 }
 
-MessageState::~MessageState()
+void MessageState::Destroy()
 {
 	RestoreContent();
+}
+
+MessageState::MessageState(COORD const _lineStartPosition,
+	SHORT const _maxLineLength,
+	std::string const& _message,
+	Color::Color const& _color)
+	: lineStartPosition(_lineStartPosition),
+	maxLineLength(_maxLineLength),
+	message(_message),
+	color(_color)
+{
 }

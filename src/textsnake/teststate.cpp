@@ -3,20 +3,35 @@
 #include "config.hpp"
 #include "playersnake.hpp"
 #include "huntersnake.hpp"
+#include "userinput.hpp"
+#include "statestack.hpp"
+#include "pausestate.hpp"
 
 void TestState::Update(unsigned const elapsedMs)
 {
-	// #include "userinput.hpp"
-	// UserInput::GetInstance() can be used to listen for player driven events
+	auto& userInput = UserInput::GetInstance();
+	if (userInput.WasActionPressed(PlayerActions::Pause))
+	{
+		auto & stack = StateStack::GetInstance();
+		stack.SchedulePushState(std::make_unique<PauseState>());
 
-	// #include "statestack.hpp"
+		// Avoid the upcoming update
+		return;
+	}
+
+	// 
 	// StateStack::GetInstance() can be used to manipulate the game state stack,
-	// e.g. Clear() it and PushState(...) the MenuState to return to the main menu
+	// e.g. Clear() it and SchedulePushState(...) the MenuState to return to the main menu
 	// or to push a MessageState (e.g. PauseState or GameOverState)
 	field.Update(elapsedMs);
 }
 
-void TestState::Awake()
+void TestState::Destroy()
+{
+	// Called when the state is about to be thrown off the stack
+}
+
+void TestState::Focus()
 {
 	// Called when the state is put on the stack or after gains back focus (i.e. due
 	// to another state being popped off)

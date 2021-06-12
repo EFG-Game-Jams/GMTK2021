@@ -1,36 +1,56 @@
 #include "config.hpp"
 #include "game.hpp"
 #include "menustate.hpp"
+#include "levelstate.hpp"
+#include "teststate.hpp"
 #include <thread>
 #include <Windows.h>
+#include <cassert>
 
-void Game::Reset()
+void Game::Reset(Level startupLevel)
 {
 	stateStack.Clear();
-	stateStack.PushState(std::make_unique<MenuState>(), true);
+
+	switch (startupLevel)
+	{
+	case Level::Unknown:
+		stateStack.SchedulePushState(std::make_unique<MenuState>());
+		break;
+
+	case Level::Test:
+		stateStack.SchedulePushState(std::make_unique<TestState>());
+
+	case Level::Level0:
+		stateStack.SchedulePushState(std::make_unique<LevelState>(0));
+
+	default:
+		assert(false);
+	}
 }
 
 void Game::HandleInput()
 {
-	// TODO remove this cheap reset
+	// TODO remove this cheap reset? It is also mentioned in the info game state!
 	if (userInput.WasActionReleased(PlayerActions::Escape))
 	{
-		Reset();
+		stateStack.SchedulePushState(std::make_unique<MenuState>());
 	}
 }
 
-void Game::Run(long long const targetFrameTime)
+void Game::Run(long long const targetFrameTime, Level startupLevel)
 {
-	Reset();
+	Reset(startupLevel);
 
 	while (stateStack.StateCount())
 	{
 		auto const start = std::chrono::steady_clock::now();
 
+		stateStack.HandleScheduledAction();
+
 		userInput.Update();
 		HandleInput();
 
-		stateStack.GetTopState()->Update(targetFrameTime);
+		stateStack.GetActiveState()->Update(targetFrameTime);
 
 		auto const executionLength = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start).count();
 		auto const sleepTime = targetFrameTime - executionLength;

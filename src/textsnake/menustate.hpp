@@ -1,8 +1,8 @@
 #pragma once
-#include "gamestate.hpp"
+#include "state.hpp"
 #include "menufield.hpp"
 
-class MenuState : public GameState
+class MenuState : public State
 {
 private:
 	bool spawnedSnakes;
@@ -10,9 +10,9 @@ private:
 
 public:
 	void Update(unsigned const elapsedMs) override;
-	void Awake() override;
+	void Focus() override;
+	void Destroy() override;
 
 	MenuState();
-	~MenuState();
 };
 

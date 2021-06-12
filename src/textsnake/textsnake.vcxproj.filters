@@ -48,7 +48,7 @@
     <ClInclude Include="game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gamestate.hpp">
+    <ClInclude Include="state.hpp">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="menustate.hpp">
@@ -133,6 +133,15 @@
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
     <ClInclude Include="snaketype.hpp">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="level.hpp">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="levelstate.hpp">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="pendingstackaction.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
@@ -220,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="huntersnake.cpp">
       <Filter>Source Files\Snakes</Filter>
+    </ClCompile>
+    <ClCompile Include="levelstate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="state.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

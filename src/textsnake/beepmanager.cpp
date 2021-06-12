@@ -67,6 +67,7 @@ void BeepManager::Play(Note note)
 
 void BeepManager::workerThreadFunc(SequenceQueue *queue, bool *keepRunning)
 {
+	return; // BE QUIET!
 	std::stack<Sequence> sequenceStack;
 
 	Sequence tempSequence;

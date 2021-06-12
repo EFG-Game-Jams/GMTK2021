@@ -8,30 +8,18 @@ void GameOverState::Update(unsigned const elapsedMs)
 {
 	auto& evHandler = UserInput::GetInstance();
 
-	if (evHandler.WasActionReleased(PlayerActions::Action))
+	if (evHandler.WasActionReleased(PlayerActions::Action) || evHandler.WasActionReleased(PlayerActions::Escape))
 	{
 		auto& stateStack = StateStack::GetInstance();
-		stateStack.PopState();
-		stateStack.PushState(std::make_unique<MenuState>());
-		return;
-	}
-	else if (evHandler.WasActionReleased(PlayerActions::Escape))
-	{
-		auto& stateStack = StateStack::GetInstance();
-		stateStack.PopState();
-		return;
+		stateStack.SchedulePushState(std::make_unique<MenuState>());
 	}
 }
 
 GameOverState::GameOverState()
 	: MessageState(
-		COORD{Config::consoleBufferSize.X, Config::consoleBufferSize.Y},
+		COORD{0, Config::consoleBufferSize.Y / 2},
 		Config::consoleBufferSize.X,
-		"Game Over! Continue? Y/N",
+		"Game Over!",
 		Color::Color(Color::Foreground::WHITE, Color::Background::DARKRED))
-{
-}
-
-GameOverState::~GameOverState()
 {
 }

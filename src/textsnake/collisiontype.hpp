@@ -3,7 +3,8 @@
 enum class CollisionType
 {
 	None,
-	Fatal,
+	CircleCreated,
+	PlayerKilled,
 	HeadOnBody,
 	HeadOnHead,
 	HeadOnTail

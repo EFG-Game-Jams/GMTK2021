@@ -3,6 +3,7 @@
 #include "teststate.hpp"
 #include "menustate.hpp"
 #include "infostate.hpp"
+#include "levelstate.hpp"
 
 void MenuField::UpdateCollisions()
 {
@@ -17,16 +18,20 @@ void MenuField::UpdateCollisions()
 			auto const snakeType = (snakes[i])->GetType();
 			switch (snakeType)
 			{
+			case SnakeType::MenuGotoPlay:
+				stateStack.SchedulePushState(std::make_unique<LevelState>(0));
+				return;
+
 			case SnakeType::MenuGotoTest:
-				stateStack.PushState(std::make_unique<TestState>(), true);
+				stateStack.SchedulePushState(std::make_unique<TestState>());
 				return;
 
 			case SnakeType::MenuGotoInfo:
-				stateStack.PushState(std::make_unique<InfoState>(), true);
+				stateStack.SchedulePushState(std::make_unique<InfoState>());
 				return;
 
 			case SnakeType::MenuGotoMenu:
-				stateStack.PushState(std::make_unique<MenuState>(), true);
+				stateStack.SchedulePushState(std::make_unique<MenuState>());
 				return;
 
 			default:

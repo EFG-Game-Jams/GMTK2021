@@ -7,6 +7,5 @@ public:
 	void Update(unsigned const elapsedMs) override;
 
 	PauseState();
-	~PauseState();
 };
 

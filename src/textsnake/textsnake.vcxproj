@@ -21,7 +21,8 @@
   <ItemGroup>
     <ClInclude Include="basesnake.hpp" />
     <ClInclude Include="collisiontype.hpp" />
-    <ClInclude Include="gamestate.hpp" />
+    <ClInclude Include="pendingstackaction.h" />
+    <ClInclude Include="state.hpp" />
     <ClInclude Include="beepmanager.hpp" />
     <ClInclude Include="clipboard.hpp" />
     <ClInclude Include="color.hpp" />
@@ -30,6 +31,8 @@
     <ClInclude Include="cursor.hpp" />
     <ClInclude Include="huntersnake.hpp" />
     <ClInclude Include="infostate.hpp" />
+    <ClInclude Include="level.hpp" />
+    <ClInclude Include="levelstate.hpp" />
     <ClInclude Include="menufield.hpp" />
     <ClInclude Include="menusnake.hpp" />
     <ClInclude Include="noaisnake.hpp" />
@@ -60,6 +63,7 @@
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="huntersnake.cpp" />
     <ClCompile Include="infostate.cpp" />
+    <ClCompile Include="levelstate.cpp" />
     <ClCompile Include="menufield.cpp" />
     <ClCompile Include="menusnake.cpp" />
     <ClCompile Include="noaisnake.cpp" />
@@ -75,6 +79,7 @@
     <ClCompile Include="playersnake.cpp" />
     <ClCompile Include="playingfield.cpp" />
     <ClCompile Include="snakeblock.cpp" />
+    <ClCompile Include="state.cpp" />
     <ClCompile Include="statestack.cpp" />
     <ClCompile Include="teststate.cpp" />
     <ClCompile Include="userinput.cpp" />

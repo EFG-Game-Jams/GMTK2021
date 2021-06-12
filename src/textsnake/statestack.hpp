@@ -1,23 +1,28 @@
 #pragma once
 #include "userinput.hpp"
 #include <memory>
-#include "gamestate.hpp"
+#include "state.hpp"
+#include "pendingstackaction.h"
 
 class StateStack
 {
 private:
-	std::vector<std::unique_ptr<GameState>> states;
+	PendingStackAction pendingAction;
+	std::vector<std::unique_ptr<State>> states;
+	State* activeState;
 
-	StateStack() = default;
+	StateStack();
 	~StateStack() = default;
 
 public:
 	void Clear();
 
-	void PushState(std::unique_ptr<GameState>&& state, bool clearScreen = false);
-	void PopState();
+	void SchedulePushState(std::unique_ptr<State>&& state);
+	void SchedulePopState();
 	std::size_t StateCount() const;
-	GameState* const GetTopState();
+	State* const GetActiveState();
+
+	void HandleScheduledAction();
 
 	static StateStack & GetInstance();
 };

@@ -1,7 +1,7 @@
-#include "gamestate.hpp"
+#include "state.hpp"
 #include "playingfield.hpp"
 
-class TestState : public GameState
+class TestState : public State
 {
 private:
 	bool spawnedSnakes;
@@ -9,7 +9,8 @@ private:
 
 public:
 	virtual void Update(unsigned const elapsedMs) override;
-	virtual void Awake() override;
+	virtual void Focus() override;
+	virtual void Destroy() override;
 
 	TestState();
 };
