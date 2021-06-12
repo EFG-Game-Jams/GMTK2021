@@ -8,3 +8,7 @@ COORD operator +(const COORD a, const COORD b);
 COORD operator *(const COORD a, const COORD b);
 
 COORD operator /(const COORD a, const COORD b);
+
+bool operator ==(const COORD a, const COORD b);
+
+bool operator !=(const COORD a, const COORD b);

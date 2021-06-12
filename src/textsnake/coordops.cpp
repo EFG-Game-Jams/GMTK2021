@@ -35,3 +35,13 @@ COORD operator /(const COORD a, const COORD b)
 
 	return result;
 }
+
+bool operator==(const COORD a, const COORD b)
+{
+	return a.X == b.X && a.Y == b.Y;
+}
+
+bool operator!=(const COORD a, const COORD b)
+{
+	return !(a == b);
+}

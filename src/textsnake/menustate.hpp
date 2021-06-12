@@ -1,11 +1,11 @@
 #pragma once
 #include "basestate.hpp"
-#include "player.hpp"
+#include "playingfield.hpp"
 
-class PlayingState : public State
+class MenuState : public State
 {
 private:
-	Player player;
+	PlayingField field;
 
 	void Pause();
 
@@ -15,7 +15,7 @@ public:
 	void Update(unsigned const elapsedMs) override;
 	void Awake() override;
 
-	PlayingState();
-	~PlayingState();
+	MenuState();
+	~MenuState();
 };
 

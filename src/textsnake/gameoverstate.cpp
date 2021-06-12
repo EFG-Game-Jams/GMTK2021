@@ -2,7 +2,7 @@
 #include "userinput.hpp"
 #include "statestack.hpp"
 #include "gameoverstate.hpp"
-#include "playingstate.hpp"
+#include "menustate.hpp"
 
 void GameOverState::Update(unsigned const elapsedMs)
 {
@@ -12,7 +12,7 @@ void GameOverState::Update(unsigned const elapsedMs)
 	{
 		auto& stateStack = StateStack::GetInstance();
 		stateStack.PopState();
-		stateStack.PushState(std::make_unique<PlayingState>());
+		stateStack.PushState(std::make_unique<MenuState>());
 		return;
 	}
 	else if (evHandler.WasActionReleased(PlayerActions::Escape))

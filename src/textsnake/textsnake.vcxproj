@@ -19,28 +19,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="basesnake.hpp" />
     <ClInclude Include="basestate.hpp" />
     <ClInclude Include="clipboard.hpp" />
     <ClInclude Include="color.hpp" />
     <ClInclude Include="config.hpp" />
     <ClInclude Include="coordops.hpp" />
     <ClInclude Include="cursor.hpp" />
+    <ClInclude Include="dumbsnake.hpp" />
     <ClInclude Include="event.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="gameoverstate.hpp" />
     <ClInclude Include="messagestate.hpp" />
     <ClInclude Include="pausestate.hpp" />
     <ClInclude Include="player.hpp" />
-    <ClInclude Include="playingstate.hpp" />
+    <ClInclude Include="menustate.hpp" />
+    <ClInclude Include="playersnake.hpp" />
+    <ClInclude Include="playingfield.hpp" />
+    <ClInclude Include="snakeblock.hpp" />
     <ClInclude Include="statestack.hpp" />
     <ClInclude Include="userinput.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="basesnake.cpp" />
     <ClCompile Include="clipboard.cpp" />
     <ClCompile Include="color.cpp" />
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="coordops.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="dumbsnake.cpp" />
     <ClCompile Include="event.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameoverstate.cpp" />
@@ -48,7 +56,10 @@
     <ClCompile Include="messagestate.cpp" />
     <ClCompile Include="pausestate.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="playingstate.cpp" />
+    <ClCompile Include="menustate.cpp" />
+    <ClCompile Include="playersnake.cpp" />
+    <ClCompile Include="playingfield.cpp" />
+    <ClCompile Include="snakeblock.cpp" />
     <ClCompile Include="statestack.cpp" />
     <ClCompile Include="userinput.cpp" />
     <ClCompile Include="window.cpp" />

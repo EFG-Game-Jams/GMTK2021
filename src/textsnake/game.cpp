@@ -1,13 +1,13 @@
 #include "config.hpp"
 #include "game.hpp"
-#include "playingstate.hpp"
+#include "menustate.hpp"
 #include <thread>
 #include <Windows.h>
 
 void Game::Run(unsigned const targetFrameTime)
 {
 	StateStack& stateStack = StateStack::GetInstance();
-	stateStack.PushState(std::make_unique<PlayingState>());
+	stateStack.PushState(std::make_unique<MenuState>());
 
 	UserInput& evHandler = UserInput::GetInstance();
 	while (stateStack.StateCount())
