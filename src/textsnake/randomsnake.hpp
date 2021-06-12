@@ -11,8 +11,7 @@ public:
 
 	SnakeType GetType() const override;
 
-	RandomSnake(MovingDirection const initialMovingDirection,
-		COORD const spawnPosition,
-		std::string const& letters,
+	RandomSnake(
+		std::vector<SnakeBlock> const& blocks,
 		Color::Color const clearColor);
 };

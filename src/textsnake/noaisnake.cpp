@@ -16,8 +16,10 @@ SnakeType NoAiSnake::GetType() const
 	return SnakeType::NoAi;
 }
 
-NoAiSnake::NoAiSnake(MovingDirection const direction, COORD const spawnPosition, std::string const& letters, Color::Color const clearColor)
-	: BaseSnake(direction, spawnPosition, letters, Config::dumbHeadColor, Config::dumbBodyColor, clearColor),
+NoAiSnake::NoAiSnake(
+	std::vector<SnakeBlock> const& blocks,
+	Color::Color const clearColor)
+	: BaseSnake(blocks, Config::dumbHeadColor, Config::dumbBodyColor, clearColor),
 	elapsedSinceLastTick(0)
 {
 }

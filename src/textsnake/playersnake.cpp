@@ -43,9 +43,12 @@ PlayerSnake::PlayerSnake(
 	std::string const & letters,
 	Color::Color const clearColor)
 	: BaseSnake(
-		MovingDirection::North,
-		spawnPosition,
-		letters,
+		GenerateLineOfSnakeBlocks(
+			spawnPosition,
+			MovingDirection::North,
+			letters,
+			Config::playerHeadColor,
+			Config::playerBodyColor),
 		Config::playerHeadColor,
 		Config::playerBodyColor,
 		clearColor),

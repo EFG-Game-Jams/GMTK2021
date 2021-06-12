@@ -35,7 +35,6 @@
     <ClInclude Include="messagestate.hpp" />
     <ClInclude Include="movingdirection.hpp" />
     <ClInclude Include="pausestate.hpp" />
-    <ClInclude Include="player.hpp" />
     <ClInclude Include="menustate.hpp" />
     <ClInclude Include="playersnake.hpp" />
     <ClInclude Include="playingfield.hpp" />
@@ -62,7 +61,6 @@
     <ClCompile Include="messagestate.cpp" />
     <ClCompile Include="movingdirection.cpp" />
     <ClCompile Include="pausestate.cpp" />
-    <ClCompile Include="player.cpp" />
     <ClCompile Include="menustate.cpp" />
     <ClCompile Include="playersnake.cpp" />
     <ClCompile Include="playingfield.cpp" />

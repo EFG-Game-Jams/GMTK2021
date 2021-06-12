@@ -12,6 +12,8 @@ private:
 	~StateStack() = default;
 
 public:
+	void Clear();
+
 	void PushState(std::unique_ptr<State>&& state);
 	void PopState();
 	std::size_t StateCount() const;

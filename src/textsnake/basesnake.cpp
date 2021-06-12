@@ -6,18 +6,24 @@
 
 void BaseSnake::Reverse()
 {
-	for (std::size_t i = 0; i < blocks.size() / 2; ++i)
+	// Head becomes body part
+	blocks[0].color = bodyColor;
+	blocks[0].Draw();
+
+	std::vector<SnakeBlock> reversedBlocks;
+	for (long i = blocks.size() - 1; i >= 0; --i)
 	{
-		std::swap(blocks[i], blocks[blocks.size() - (i + 1)]);
+		SnakeBlock reversedBlock = blocks[i];
+		reversedBlock.color = bodyColor;
+		reversedBlock.direction = GetOppositeMovingDirection(blocks[i].direction);
+		reversedBlocks.push_back(reversedBlock);
 	}
-
-	blocks[blocks.size() - 1].color = bodyColor;
-	blocks[blocks.size() - 1].Draw();
-
+	
+	blocks = reversedBlocks;
 	blocks[0].color = headColor;
 	blocks[0].Draw();
 
-	movingDirection = GetOppositeMovingDirection(movingDirection);
+	movingDirection = blocks[0].direction;
 }
 
 void BaseSnake::Translate(COORD const offset)
@@ -26,7 +32,6 @@ void BaseSnake::Translate(COORD const offset)
 	char const clearCharacter = ' ';
 	
 	COORD newPos = Config::GetSafePosition(GetHead().position + offset);
-	MovingDirection newMovingDirection = movingDirection;
 	for (std::size_t i = 0; i < blocks.size(); ++i)
 	{
 		if (i == blocks.size() - 1)
@@ -38,8 +43,13 @@ void BaseSnake::Translate(COORD const offset)
 		}
 
 		std::swap(blocks[i].position, newPos);
-		std::swap(blocks[i].direction, newMovingDirection);
 		blocks[i].Draw();
+	}
+
+	blocks[0].direction = movingDirection;
+	for (std::size_t i = blocks.size() - 1; i > 0; --i)
+	{
+		blocks[i].direction = blocks[i - 1].direction;
 	}
 }
 
@@ -160,19 +170,38 @@ void BaseSnake::Trim(std::size_t newSize)
 }
 
 BaseSnake::BaseSnake(
-	MovingDirection const initialMovingDirection,
-	COORD const spawnPosition,
-	std::string const& letters,
+	std::vector<SnakeBlock> const& _blocks,
 	Color::Color const _headColor,
 	Color::Color const _bodyColor,
 	Color::Color const _clearColor)
-	: nextMove{0, 0},
+	: blocks(_blocks),
+	nextMove{ 0, 0 },
 	clearColor(_clearColor),
 	headColor(_headColor),
-	bodyColor(_bodyColor)
+	bodyColor(_bodyColor),
+	movingDirection(_blocks[0].direction)
 {
-	movingDirection = initialMovingDirection;
-	
+	blocks[0].color = headColor;
+	blocks[0].Draw();
+
+	for (std::size_t i = 1; i < blocks.size(); ++i)
+	{
+		blocks[i].color = bodyColor;
+		blocks[i].Draw();
+	}
+}
+
+BaseSnake::~BaseSnake()
+{
+}
+
+std::vector<SnakeBlock> GenerateLineOfSnakeBlocks(
+	COORD const spawnPosition,
+	MovingDirection const movingDirection,
+	std::string const & letters,
+	Color::Color const headColor,
+	Color::Color const bodyColor)
+{
 	COORD spawnGrowthDirection{ 0, 0 };
 	switch (movingDirection)
 	{
@@ -193,19 +222,17 @@ BaseSnake::BaseSnake(
 		break;
 	}
 
+	std::vector<SnakeBlock> blocks;
 	for (std::size_t i = 0; i < letters.size(); ++i)
 	{
 		SnakeBlock block;
 		block.character = letters[i];
 		block.color = i == 0 ? headColor : bodyColor;
 		block.position = Config::GetSafePosition(spawnPosition + (spawnGrowthDirection * COORD{ static_cast<short>(i), static_cast<short>(i) }));
-		block.direction = initialMovingDirection;
+		block.direction = movingDirection;
 
-		block.Draw();
 		blocks.push_back(block);
 	}
-}
 
-BaseSnake::~BaseSnake()
-{
+	return blocks;
 }

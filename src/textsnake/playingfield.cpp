@@ -53,7 +53,7 @@ CollisionType Collides(BaseSnake const& a, BaseSnake const& b)
 std::unique_ptr<BaseSnake> SplitOffTailAt(BaseSnake& snake, COORD collisionPosition)
 {
 	auto const& blocks = snake.GetBlocks();
-	std::string newSnakeLetters;
+	std::vector<SnakeBlock> newSnakeBlocks;
 	bool isNewSnakeBit = false;
 	for (std::size_t i = 0; i < blocks.size(); ++i)
 	{
@@ -64,34 +64,27 @@ std::unique_ptr<BaseSnake> SplitOffTailAt(BaseSnake& snake, COORD collisionPosit
 
 		if (isNewSnakeBit)
 		{
-			newSnakeLetters += blocks[i].character;
+			newSnakeBlocks.push_back(blocks[i]);
 		}
 	}
 
-	assert(newSnakeLetters.size() != 0);
-	assert(newSnakeLetters.size() != blocks.size());
+	assert(newSnakeBlocks.size() != 0);
+	assert(newSnakeBlocks.size() != blocks.size());
 
-	auto const newSnakeMovingDirection = blocks[blocks.size() - 1].direction;
 	// Remove new snake letters from existing snake
-	snake.Trim(blocks.size() - newSnakeLetters.size());
+	snake.Trim(blocks.size() - newSnakeBlocks.size());
 
 	std::unique_ptr<BaseSnake> newSnake;
 	switch (snake.GetType())
 	{
 	case SnakeType::Random:
 	case SnakeType::Player:
-		newSnake = std::make_unique<RandomSnake>(
-			newSnakeMovingDirection,
-			collisionPosition,
-			newSnakeLetters,
-			snake.GetClearColor());
+		newSnake = std::make_unique<RandomSnake>(newSnakeBlocks, snake.GetClearColor());
+		break;
 
 	case SnakeType::NoAi:
-		newSnake = std::make_unique<NoAiSnake>(
-			newSnakeMovingDirection,
-			collisionPosition,
-			newSnakeLetters,
-			snake.GetClearColor());
+		newSnake = std::make_unique<NoAiSnake>(newSnakeBlocks, snake.GetClearColor());
+		break;
 	}
 
 	assert(newSnake.get() != nullptr);

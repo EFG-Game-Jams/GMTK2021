@@ -4,8 +4,16 @@
 
 class Game
 {
+private:
+	UserInput& userInput;
+	StateStack& stateStack;
+
+	void Reset();
+
+	void HandleInput();
+
 public:
-	void Run(unsigned const targetFrameTime);
+	void Run(long long const targetFrameTime);
 
 	Game();
 	~Game();

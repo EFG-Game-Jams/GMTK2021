@@ -4,6 +4,11 @@
 #include "window.hpp"
 #include "statestack.hpp"
 
+void StateStack::Clear()
+{
+	states.clear();
+}
+
 void StateStack::PushState(std::unique_ptr<State>&& state)
 {
 	states.emplace_back(std::move(state));

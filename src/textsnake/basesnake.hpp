@@ -1,9 +1,16 @@
 #pragma once
-#include "snakeblock.hpp"
 #include <vector>
 #include <memory>
 #include "movingdirection.hpp"
+#include "snakeblock.hpp"
 #include "snaketype.hpp"
+
+std::vector<SnakeBlock> GenerateLineOfSnakeBlocks(
+	COORD const spawnPosition,
+	MovingDirection const movingDirection,
+	std::string const& letters,
+	Color::Color const headColor,
+	Color::Color const bodyColor);
 
 class BaseSnake
 {
@@ -46,9 +53,7 @@ public:
 	virtual void Trim(std::size_t newSize);
 
 	BaseSnake(
-		MovingDirection const initialMovingDirection,
-		COORD const spawnPosition,
-		std::string const& letters,
+		std::vector<SnakeBlock> const & blocks,
 		Color::Color const headColor,
 		Color::Color const bodyColor,
 		Color::Color const clearColor);

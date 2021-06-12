@@ -4,21 +4,45 @@
 #include <thread>
 #include <Windows.h>
 
-void Game::Run(unsigned const targetFrameTime)
+void Game::Reset()
 {
-	StateStack& stateStack = StateStack::GetInstance();
-	stateStack.PushState(std::make_unique<MenuState>());
+	// Clear the console
+	std::cout << Color::Color(); // Black
+	std::size_t const limit = Config::consoleBufferSize.X * Config::consoleBufferSize.Y;
+	for (std::size_t i = 0; i < limit; ++i)
+	{
+		std::cout << ' ';
+	}
 
-	UserInput& evHandler = UserInput::GetInstance();
+	stateStack.Clear();
+	stateStack.PushState(std::make_unique<MenuState>());
+}
+
+void Game::HandleInput()
+{
+	// TODO remove this cheap reset
+	if (userInput.WasActionReleased(PlayerActions::Escape))
+	{
+		Reset();
+	}
+}
+
+void Game::Run(long long const targetFrameTime)
+{
+	Reset();
+
 	while (stateStack.StateCount())
 	{
 		auto const start = std::chrono::steady_clock::now();
 
-		evHandler.Update();
+		userInput.Update();
+		HandleInput();
+
 		stateStack.GetTopState()->Update(targetFrameTime);
 
-		auto const sleepTime = targetFrameTime - std::chrono::duration_cast<std::chrono::milliseconds>(start - std::chrono::steady_clock::now()).count();
-		if (sleepTime > 0 && sleepTime <= targetFrameTime)
+		auto const executionLength = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start).count();
+		auto const sleepTime = targetFrameTime - executionLength;
+		if (sleepTime > 0)
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
 		}
@@ -45,6 +69,8 @@ void SetConsoleWindowSize(HANDLE conout, SHORT cols, SHORT rows)
 }
 
 Game::Game()
+	: stateStack(StateStack::GetInstance()),
+	userInput(UserInput::GetInstance())
 {
 	// Setup the console screen
 	HANDLE stdoutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -56,14 +82,6 @@ Game::Game()
 	GetConsoleCursorInfo(stdoutHandle, &cursorInfo);
 	cursorInfo.bVisible = FALSE;
 	SetConsoleCursorInfo(stdoutHandle, &cursorInfo);
-
-	// Clear the console
-	std::cout << Color::Color(); // Black
-	std::size_t const limit = Config::consoleBufferSize.X * Config::consoleBufferSize.Y;
-	for (std::size_t i = 0; i < limit; ++i)
-	{
-		std::cout << ' ';
-	}
 }
 
 Game::~Game()

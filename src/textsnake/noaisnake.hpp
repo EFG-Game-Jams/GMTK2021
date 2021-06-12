@@ -10,6 +10,8 @@ public:
 
 	SnakeType GetType() const override;
 
-	NoAiSnake(MovingDirection const direction, COORD const spawnPosition, std::string const& letters, Color::Color const clearColor);
+	NoAiSnake(
+		std::vector<SnakeBlock> const& blocks,
+		Color::Color const clearColor);
 };
 

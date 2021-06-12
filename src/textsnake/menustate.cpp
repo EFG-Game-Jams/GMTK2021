@@ -24,15 +24,6 @@ void MenuState::HandleInput(UserInput const& evHandler)
 		stateStack.PushState(std::make_unique<PauseState>());
 		return;
 	}
-
-	// TODO remove this cheap reset
-	if (evHandler.WasActionReleased(PlayerActions::Escape))
-	{
-		StateStack& stateStack = StateStack::GetInstance();
-		stateStack.PopState();
-		stateStack.PushState(std::make_unique<MenuState>());
-		return;
-	}
 }
 
 void MenuState::Update(unsigned const elapsedMs)
@@ -58,11 +49,11 @@ MenuState::MenuState()
 
 	spawnLocation.X = Config::consoleBufferSize.X / 2;
 	spawnLocation.Y = Config::consoleBufferSize.Y / 2;
-	field.snakes.emplace_back(std::make_unique<PlayerSnake>(spawnLocation, std::string("ABCDEF"), clearColor));
+	field.snakes.emplace_back(std::make_unique<PlayerSnake>(spawnLocation, std::string("ABCDEFGHIJKLM"), clearColor));
 
-	spawnLocation.X = static_cast<short>(Config::consoleBufferSize.X * 0.25);
-	spawnLocation.Y = static_cast<short>(Config::consoleBufferSize.Y * 0.25);
-	field.snakes.emplace_back(std::make_unique<NoAiSnake>(MovingDirection::East, spawnLocation, std::string("123456"), clearColor));
+	//spawnLocation.X = static_cast<short>(Config::consoleBufferSize.X * 0.25);
+	//spawnLocation.Y = static_cast<short>(Config::consoleBufferSize.Y * 0.25);
+	//field.snakes.emplace_back(std::make_unique<NoAiSnake>(MovingDirection::East, spawnLocation, std::string("123456"), clearColor));
 
 	//spawnLocation.X = static_cast<short>(Config::consoleBufferSize.X * 0.75);
 	//spawnLocation.Y = static_cast<short>(Config::consoleBufferSize.Y * 0.33);

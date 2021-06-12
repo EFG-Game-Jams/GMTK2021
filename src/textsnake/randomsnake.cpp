@@ -61,13 +61,10 @@ SnakeType RandomSnake::GetType() const
 	return SnakeType::Random;
 }
 
-RandomSnake::RandomSnake(MovingDirection const initialMovingDirection, COORD const spawnPosition, std::string const& letters, Color::Color const clearColor)
-	: BaseSnake(initialMovingDirection,
-		spawnPosition,
-		letters,
-		Config::dumbHeadColor,
-		Config::dumbBodyColor,
-		clearColor),
+RandomSnake::RandomSnake(
+	std::vector<SnakeBlock> const& blocks,
+	Color::Color const clearColor)
+	: BaseSnake(blocks, Config::dumbHeadColor, Config::dumbBodyColor, clearColor),
 	elapsedSinceLastDirectionChange(0),
 	elapsedSinceLastMovement(0)
 {
