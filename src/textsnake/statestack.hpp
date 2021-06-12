@@ -1,12 +1,12 @@
 #pragma once
 #include "userinput.hpp"
 #include <memory>
-#include "basestate.hpp"
+#include "gamestate.hpp"
 
 class StateStack
 {
 private:
-	std::vector<std::unique_ptr<State>> states;
+	std::vector<std::unique_ptr<GameState>> states;
 
 	StateStack() = default;
 	~StateStack() = default;
@@ -14,10 +14,10 @@ private:
 public:
 	void Clear();
 
-	void PushState(std::unique_ptr<State>&& state);
+	void PushState(std::unique_ptr<GameState>&& state, bool clearScreen = false);
 	void PopState();
 	std::size_t StateCount() const;
-	State* const GetTopState();
+	GameState* const GetTopState();
 
 	static StateStack & GetInstance();
 };

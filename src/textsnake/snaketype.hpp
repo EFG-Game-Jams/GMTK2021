@@ -5,5 +5,9 @@ enum class SnakeType
 	Random,
 	NoAi,
 	Hunter,
-	Player
+	Player,
+	MenuGotoTest,
+	MenuGotoInfo,
+	MenuGotoPlay,
+	MenuGotoMenu
 };

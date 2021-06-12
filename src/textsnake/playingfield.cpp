@@ -6,16 +6,7 @@
 #include "noaisnake.hpp"
 #include "huntersnake.hpp"
 
-enum class CollisionType
-{
-	None,
-	Fatal,
-	HeadOnBody,
-	HeadOnHead,
-	HeadOnTail
-};
-
-CollisionType Collides(BaseSnake const& a, BaseSnake const& b)
+CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) const
 {
 	auto const ahead = a.GetNextHeadPosition();
 	auto const& bblocks = b.GetBlocks();
@@ -80,7 +71,14 @@ std::unique_ptr<BaseSnake> SplitOffTailAt(BaseSnake& snake, COORD collisionPosit
 	{
 	case SnakeType::Random:
 	case SnakeType::Player:
-		newSnake = std::make_unique<RandomSnake>(newSnakeBlocks, snake.GetClearColor());
+		if (Config::GetRandomDouble() < 0.2)
+		{
+			newSnake = std::make_unique<HunterSnake>(newSnakeBlocks, snake.GetClearColor());
+		}
+		else
+		{
+			newSnake = std::make_unique<RandomSnake>(newSnakeBlocks, snake.GetClearColor());
+		}
 		break;
 
 	case SnakeType::NoAi:
@@ -101,19 +99,14 @@ std::unique_ptr<BaseSnake> SplitOffTailAt(BaseSnake& snake, COORD collisionPosit
 	return newSnake;
 }
 
-void PlayingField::Update(unsigned const elapsedMs)
+void PlayingField::UpdateCollisions()
 {
-	for (auto& snake : snakes)
-	{
-		snake->CalculateNextMove(elapsedMs, snakes);
-	}
-
 	bool hadCollision = false;
 	do
 	{
 		hadCollision = false;
 
-		for (auto & snake : snakes)
+		for (auto& snake : snakes)
 		{
 			for (auto otherSnake = snakes.begin(); otherSnake != snakes.end(); ++otherSnake)
 			{
@@ -127,10 +120,10 @@ void PlayingField::Update(unsigned const elapsedMs)
 				switch (collisionType)
 				{
 				case CollisionType::HeadOnBody:
-					{
-						snakes.emplace_back(SplitOffTailAt(**otherSnake, snake->GetNextHeadPosition()));
-					}
-					break;
+				{
+					snakes.emplace_back(SplitOffTailAt(**otherSnake, snake->GetNextHeadPosition()));
+				}
+				break;
 
 				case CollisionType::HeadOnHead:
 					(*otherSnake)->Reverse();
@@ -168,6 +161,16 @@ void PlayingField::Update(unsigned const elapsedMs)
 			}
 		}
 	} while (hadCollision);
+}
+
+void PlayingField::Update(unsigned const elapsedMs)
+{
+	for (auto& snake : snakes)
+	{
+		snake->CalculateNextMove(elapsedMs, snakes);
+	}
+
+	UpdateCollisions();
 
 	for (auto& snake : snakes)
 	{

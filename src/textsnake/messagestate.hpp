@@ -1,11 +1,11 @@
 #pragma once
-#include "basestate.hpp"
+#include "gamestate.hpp"
 #include "color.hpp"
 #include <string>
 #include <vector>
 #include <Windows.h>
 
-class MessageState : public State
+class MessageState : public GameState
 {
 private:
 	std::vector<CHAR_INFO> characterBackup;

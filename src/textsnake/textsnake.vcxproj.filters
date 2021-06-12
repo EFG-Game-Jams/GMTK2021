@@ -13,156 +13,213 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{f6ff3743-e020-42c0-a967-b0e72a23fbda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{65f2e860-e1ab-46b8-a006-cfd819a50eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Snakes">
+      <UniqueIdentifier>{5cdaacd6-a552-4391-ab68-be09206052f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Snakes">
+      <UniqueIdentifier>{dd5bd72b-d654-4475-b1a7-d78a13dda5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{b4a79c5c-0368-471e-8771-3da079f05036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{5b374811-eb69-4a0a-948a-0ca29031aab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Fields">
+      <UniqueIdentifier>{2d33201e-7ccc-4325-b7cc-a3da6534c0dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fields">
+      <UniqueIdentifier>{28889357-ffcd-4bf0-93ed-1e1088a0e4ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enums">
+      <UniqueIdentifier>{a3f31cb1-8c23-44c1-ad62-63df8946edd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enums">
+      <UniqueIdentifier>{10b0455c-db79-4295-a778-635c65662d0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basestate.hpp">
+    <ClInclude Include="game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="clipboard.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="gamestate.hpp">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="menustate.hpp">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="messagestate.hpp">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="pausestate.hpp">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="statestack.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="userinput.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="window.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="event.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="cursor.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="color.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="beepmanager.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="clipboard.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="gameoverstate.hpp">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="basesnake.hpp">
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="noaisnake.hpp">
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="playersnake.hpp">
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="randomsnake.hpp">
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="snakeblock.hpp">
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="coordops.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="config.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="coordops.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="teststate.hpp">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="cursor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="event.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameoverstate.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="messagestate.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pausestate.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="menustate.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="statestack.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="userinput.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="basesnake.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snakeblock.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="playersnake.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="menusnake.hpp">
+      <Filter>Header Files\Snakes</Filter>
     </ClInclude>
     <ClInclude Include="playingfield.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="beepmanager.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="menufield.hpp">
+      <Filter>Header Files\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="randomsnake.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="movingdirection.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="snaketype.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noaisnake.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="infostate.hpp">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="huntersnake.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="collisiontype.hpp">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="movingdirection.hpp">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="snaketype.hpp">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="clipboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="color.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="coordops.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cursor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gameoverstate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="messagestate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pausestate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="menustate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="statestack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="userinput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="basesnake.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="snakeblock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="playersnake.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="playingfield.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="randomsnake.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="basesnake.cpp">
+      <Filter>Source Files\Snakes</Filter>
     </ClCompile>
-    <ClCompile Include="movingdirection.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="playersnake.cpp">
+      <Filter>Source Files\Snakes</Filter>
+    </ClCompile>
+    <ClCompile Include="randomsnake.cpp">
+      <Filter>Source Files\Snakes</Filter>
+    </ClCompile>
+    <ClCompile Include="snakeblock.cpp">
+      <Filter>Source Files\Snakes</Filter>
     </ClCompile>
     <ClCompile Include="noaisnake.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Snakes</Filter>
+    </ClCompile>
+    <ClCompile Include="gameoverstate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="messagestate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="menustate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="pausestate.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="beepmanager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="clipboard.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="color.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="coordops.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="cursor.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="event.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="statestack.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="userinput.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="teststate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="playingfield.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="menufield.cpp">
+      <Filter>Source Files\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="infostate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="menusnake.cpp">
+      <Filter>Source Files\Snakes</Filter>
+    </ClCompile>
+    <ClCompile Include="movingdirection.cpp">
+      <Filter>Source Files\Enums</Filter>
     </ClCompile>
     <ClCompile Include="huntersnake.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Snakes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

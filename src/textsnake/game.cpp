@@ -6,16 +6,8 @@
 
 void Game::Reset()
 {
-	// Clear the console
-	std::cout << Color::Color(); // Black
-	std::size_t const limit = Config::consoleBufferSize.X * Config::consoleBufferSize.Y;
-	for (std::size_t i = 0; i < limit; ++i)
-	{
-		std::cout << ' ';
-	}
-
 	stateStack.Clear();
-	stateStack.PushState(std::make_unique<MenuState>());
+	stateStack.PushState(std::make_unique<MenuState>(), true);
 }
 
 void Game::HandleInput()

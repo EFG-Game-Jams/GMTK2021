@@ -1,11 +1,12 @@
 #pragma once
-#include "basestate.hpp"
-#include "playingfield.hpp"
+#include "gamestate.hpp"
+#include "menufield.hpp"
 
-class MenuState : public State
+class MenuState : public GameState
 {
 private:
-	PlayingField field;
+	bool spawnedSnakes;
+	MenuField field;
 
 public:
 	void Update(unsigned const elapsedMs) override;
