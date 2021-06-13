@@ -27,8 +27,8 @@ namespace Config
 	Color::Color const hunterHeadColor{ Color::Foreground::YELLOW, Color::Background::RED };
 	Color::Color const hunterBodyColor{ Color::Foreground::RED, Color::Background::DARKRED };
 
-	Color::Color const menuHeadColor{ Color::Foreground::WHITE, Color::Background::BLACK };
-	Color::Color const menuBodyColor{ Color::Foreground::WHITE, Color::Background::GRAY };
+	Color::Color const menuHeadColor{ Color::Foreground::BLACK, Color::Background::WHITE };
+	Color::Color const menuBodyColor{ Color::Foreground::BLACK, Color::Background::GRAY };
 	
 	// If the supplied position goes out of bounds (< 0 or > console dimension) it wraps the value
 	COORD WrapToPlayArea(COORD position);
