@@ -19,11 +19,14 @@ void InfoState::Focus()
 		return;
 	}
 
+	// Clear the screen
+	State::Focus();
+
 	COORD spawnLocation;
 	Color::Color clearColor;
 
 	spawnLocation.X = 10;
-	spawnLocation.Y = Config::consoleBufferSize.Y - 4;
+	spawnLocation.Y = Config::playAreaSize.Y - 4;
 	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 		spawnLocation,
 		MovingDirection::East,
@@ -31,7 +34,7 @@ void InfoState::Focus()
 		clearColor));
 
 	spawnLocation.X = 38;
-	spawnLocation.Y = Config::consoleBufferSize.Y - 2;
+	spawnLocation.Y = Config::playAreaSize.Y - 2;
 	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Back"),

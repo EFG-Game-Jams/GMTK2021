@@ -1,7 +1,7 @@
 #include "cursor.hpp"
-#include "messagestate.hpp"
+#include "messageoverlay.hpp"
 
-void MessageState::RestoreContent()
+void MessageOverlay::RestoreContent()
 {
 	SMALL_RECT writeRegion;
 	writeRegion.Top = lineStartPosition.Y;
@@ -18,7 +18,7 @@ void MessageState::RestoreContent()
 	);
 }
 
-void MessageState::BackupContent()
+void MessageOverlay::BackupContent()
 {
 	characterBackup.resize(maxLineLength);
 
@@ -37,7 +37,7 @@ void MessageState::BackupContent()
 	);
 }
 
-void MessageState::DrawMessage(std::string msg, Color::Color const& color) const
+void MessageOverlay::DrawMessage(std::string msg, Color::Color const& color) const
 {
 	if (msg.size() > maxLineLength)
 	{
@@ -54,23 +54,23 @@ void MessageState::DrawMessage(std::string msg, Color::Color const& color) const
 		std::cout << ' ';
 }
 
-bool MessageState::IsOverlay() const
+bool MessageOverlay::IsOverlay() const
 {
 	return true;
 }
 
-void MessageState::Focus()
+void MessageOverlay::Focus()
 {
 	BackupContent();
 	DrawMessage(message, color);
 }
 
-void MessageState::Destroy()
+void MessageOverlay::Destroy()
 {
 	RestoreContent();
 }
 
-MessageState::MessageState(COORD const _lineStartPosition,
+MessageOverlay::MessageOverlay(COORD const _lineStartPosition,
 	SHORT const _maxLineLength,
 	std::string const& _message,
 	Color::Color const& _color)

@@ -2,25 +2,11 @@
 #include "config.hpp"
 #include "userinput.hpp"
 #include "statestack.hpp"
-#include "pausestate.hpp"
 #include "snakefactory.hpp"
+#include "scoreoverlay.hpp"
 
 void TestState::Update(unsigned const elapsedMs)
 {
-	auto& userInput = UserInput::GetInstance();
-	if (userInput.WasActionPressed(PlayerActions::Pause))
-	{
-		auto & stack = StateStack::GetInstance();
-		stack.SchedulePushState(std::make_unique<PauseState>());
-
-		// Avoid the upcoming update
-		return;
-	}
-
-	// 
-	// StateStack::GetInstance() can be used to manipulate the game state stack,
-	// e.g. Clear() it and SchedulePushState(...) the MenuState to return to the main menu
-	// or to push a MessageState (e.g. PauseState or GameOverState)
 	field.Update(elapsedMs);
 }
 
@@ -39,11 +25,14 @@ void TestState::Focus()
 		return;
 	}
 
+	// Clear the screen
+	State::Focus();
+
 	COORD spawnLocation;
 	Color::Color clearColor;
 
-	spawnLocation.X = Config::consoleBufferSize.X / 2;
-	spawnLocation.Y = Config::consoleBufferSize.Y / 2;
+	spawnLocation.X = Config::playAreaSize.X / 2;
+	spawnLocation.Y = Config::playAreaSize.Y / 2;
 	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 		spawnLocation,
 		MovingDirection::North,
@@ -70,14 +59,16 @@ void TestState::Focus()
 		MovingDirection::West,
 		"AGGRO"));
 
-	spawnLocation.X = 30;
-	spawnLocation.Y = 15;
+	spawnLocation.X = 40;
+	spawnLocation.Y = 1;
 	field.snakes.emplace_back(SnakeFactory::CreateRandom(
 		spawnLocation,
 		MovingDirection::West,
 		"RANDOM"));
 
 	spawnedSnakes = true;
+
+	StateStack::GetInstance().PushState(std::make_unique<ScoreOverlay>());
 }
 
 TestState::TestState()

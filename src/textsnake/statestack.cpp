@@ -7,30 +7,46 @@
 #include "config.hpp"
 #include <cassert>
 
+std::size_t StateStack::GetLastIndex() const
+{
+	return states.size() - 1;
+}
+
 void StateStack::Clear()
 {
+	stackModified = true;
+	for (auto iter = states.begin(); iter != states.end(); ++iter)
+	{
+		(*iter)->Destroy();
+		toDelete.push_back(std::move(*iter));
+	}
 	states.clear();
 }
 
-void StateStack::SchedulePushState(std::unique_ptr<State>&& state)
+void StateStack::PushState(std::unique_ptr<State>&& state)
 {
-	assert(pendingAction == PendingStackAction::None);
-	if (state->IsOverlay())
+	stackModified = true;
+	if (!state->IsOverlay())
 	{
-		pendingAction = PendingStackAction::Focus;
-	}
-	else
-	{
-		pendingAction = PendingStackAction::Shrink;
+		Clear();
 	}
 
-	states.emplace_back(std::move(state));
+	states.push_back(std::move(state));
+	states[GetLastIndex()]->Focus();
 }
 
-void StateStack::SchedulePopState()
+void StateStack::PopState()
 {
-	assert(pendingAction == PendingStackAction::None);
-	pendingAction = PendingStackAction::Pop;
+	assert(states.size() > 0);
+
+	stackModified = true;
+	toDelete.push_back(std::move(*states.rbegin()));
+	states.resize(GetLastIndex());
+
+	if (states.size() > 0)
+	{
+		states[GetLastIndex()]->Focus();
+	}
 }
 
 std::size_t StateStack::StateCount() const
@@ -38,60 +54,26 @@ std::size_t StateStack::StateCount() const
 	return states.size();
 }
 
-State* const StateStack::GetActiveState()
+void StateStack::Update(unsigned const elapsedMs)
 {
-	return activeState;
-}
+	toDelete.clear();
 
-void StateStack::HandleScheduledAction()
-{
-	switch (pendingAction)
+	stackModified = false;
+	for (auto iter = states.rbegin(); iter != states.rend(); ++iter)
 	{
-	case PendingStackAction::Shrink:
+		(*iter)->Update(elapsedMs);
+		
+		if (stackModified)
 		{
-			for (long i = states.size() - 2; i >= 0; --i)
-			{
-				states[i]->Destroy();
-			}
-
-			// Clear the screen
-			std::cout << Color::Color(); // Black
-			std::size_t const limit = Config::consoleBufferSize.X * Config::consoleBufferSize.Y;
-			for (std::size_t i = 0; i < limit; ++i)
-			{
-				std::cout << ' ';
-			}
-
-			if (states.size() > 1)
-			{
-				std::swap(states[0], states.back());
-				states.resize(1);
-			}
+			// No way to properly handle this, just return
+			return;
 		}
-		break;
 
-	case PendingStackAction::Pop:
-		assert(states.size() > 0);
-		states[states.size() - 1]->Destroy();
-		states.resize(states.size() - 1);
-		break;
-
-	default:
-	case PendingStackAction::Focus:
-	case PendingStackAction::None:
-		break;
+		if (!(*iter)->UpdateBelow())
+		{
+			return;
+		}
 	}
-
-	if (states.size() > 0)
-	{
-		activeState = states.back().get();
-		activeState->Focus();
-	}
-	else
-	{
-		activeState = nullptr;
-	}
-	pendingAction = PendingStackAction::None;
 }
 
 StateStack & StateStack::GetInstance()
@@ -99,10 +81,4 @@ StateStack & StateStack::GetInstance()
 	static StateStack stateStack;
 
 	return stateStack;
-}
-
-StateStack::StateStack()
-	: pendingAction(PendingStackAction::None),
-	activeState(nullptr)
-{
 }

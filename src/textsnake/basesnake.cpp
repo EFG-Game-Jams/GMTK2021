@@ -31,7 +31,7 @@ void BaseSnake::Translate(COORD const offset)
 	assert(blocks.size() > 0);
 	char const clearCharacter = ' ';
 	
-	COORD newPos = Config::GetSafePosition(GetHead().position + offset);
+	COORD newPos = Config::WrapToPlayArea(GetHead().position + offset);
 	for (std::size_t i = 0; i < blocks.size(); ++i)
 	{
 		if (i == blocks.size() - 1)
@@ -117,7 +117,7 @@ void BaseSnake::ApplyNextMove()
 
 COORD BaseSnake::GetNextHeadPosition() const
 {
-	return Config::GetSafePosition(GetHead().position + nextMove);
+	return Config::WrapToPlayArea(GetHead().position + nextMove);
 }
 
 MovingDirection BaseSnake::GetMovingDirection() const
@@ -228,7 +228,7 @@ std::vector<SnakeBlock> GenerateLineOfSnakeBlocks(
 		SnakeBlock block;
 		block.character = letters[i];
 		block.color = i == 0 ? headColor : bodyColor;
-		block.position = Config::GetSafePosition(spawnPosition + (spawnGrowthDirection * COORD{ static_cast<short>(i), static_cast<short>(i) }));
+		block.position = Config::WrapToPlayArea(spawnPosition + (spawnGrowthDirection * COORD{ static_cast<short>(i), static_cast<short>(i) }));
 		block.direction = movingDirection;
 
 		blocks.push_back(block);

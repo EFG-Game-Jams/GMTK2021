@@ -6,6 +6,7 @@
 #include <thread>
 #include <Windows.h>
 #include <cassert>
+#include "messagebuffer.hpp"
 
 void Game::Reset(Level startupLevel)
 {
@@ -14,14 +15,14 @@ void Game::Reset(Level startupLevel)
 	switch (startupLevel)
 	{
 	case Level::Unknown:
-		stateStack.SchedulePushState(std::make_unique<MenuState>());
+		stateStack.PushState(std::make_unique<MenuState>());
 		break;
 
 	case Level::Test:
-		stateStack.SchedulePushState(std::make_unique<TestState>());
+		stateStack.PushState(std::make_unique<TestState>());
 
 	case Level::Level0:
-		stateStack.SchedulePushState(std::make_unique<LevelState>(0));
+		stateStack.PushState(std::make_unique<LevelState>(0));
 
 	default:
 		assert(false);
@@ -33,7 +34,7 @@ void Game::HandleInput()
 	// TODO remove this cheap reset? It is also mentioned in the info game state!
 	if (userInput.WasActionReleased(PlayerActions::Escape))
 	{
-		stateStack.SchedulePushState(std::make_unique<MenuState>());
+		stateStack.PushState(std::make_unique<MenuState>());
 	}
 }
 
@@ -41,16 +42,16 @@ void Game::Run(long long const targetFrameTime, Level startupLevel)
 {
 	Reset(startupLevel);
 
-	while (stateStack.StateCount())
+	do
 	{
 		auto const start = std::chrono::steady_clock::now();
 
-		stateStack.HandleScheduledAction();
+		MessageBuffer::RemoveStaleMessages(100);
 
 		userInput.Update();
 		HandleInput();
 
-		stateStack.GetActiveState()->Update(targetFrameTime);
+		stateStack.Update(targetFrameTime);
 
 		auto const executionLength = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start).count();
 		auto const sleepTime = targetFrameTime - executionLength;
@@ -58,7 +59,7 @@ void Game::Run(long long const targetFrameTime, Level startupLevel)
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
 		}
-	}
+	} while (stateStack.StateCount());
 }
 
 void SetConsoleWindowSize(HANDLE conout, SHORT cols, SHORT rows)

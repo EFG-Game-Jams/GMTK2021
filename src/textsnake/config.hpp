@@ -6,6 +6,7 @@
 namespace Config
 {
 	COORD const consoleBufferSize{ 80, 20 }; // in characters
+	COORD const playAreaSize{ consoleBufferSize.X, consoleBufferSize.Y - 1 }; // in characters, origin at {0, 0}
 
 	unsigned const ticksPerPlayerMove = 64;
 
@@ -14,6 +15,8 @@ namespace Config
 
 	unsigned const ticksPerHunterMove = 64;
 	unsigned const ticksPerHunterChangeOrientation = 400;
+
+	Color::Color const scoreBoardColor{ Color::Foreground::WHITE, Color::Background::BLUE };
 
 	Color::Color const playerHeadColor{ Color::Foreground::YELLOW, Color::Background::DARKYELLOW };
 	Color::Color const playerBodyColor{ Color::Foreground::GREEN, Color::Background::DARKGREEN };
@@ -28,7 +31,7 @@ namespace Config
 	Color::Color const menuBodyColor{ Color::Foreground::WHITE, Color::Background::GRAY };
 	
 	// If the supplied position goes out of bounds (< 0 or > console dimension) it wraps the value
-	COORD GetSafePosition(COORD position);
+	COORD WrapToPlayArea(COORD position);
 
 	// Returns a value between 0.0 and 1.0
 	double GetRandomDouble();

@@ -20,22 +20,22 @@ void MenuField::UpdateCollisions()
 			switch (snakeType)
 			{
 			case SnakeType::MenuGotoPlay:
-				stateStack.SchedulePushState(std::make_unique<LevelState>(0));
+				stateStack.PushState(std::make_unique<LevelState>(0));
 				PlaySoundEffect(SoundEffect::NEUTRAL1);
 				return;
 
 			case SnakeType::MenuGotoTest:
-				stateStack.SchedulePushState(std::make_unique<TestState>());
+				stateStack.PushState(std::make_unique<TestState>());
 				PlaySoundEffect(SoundEffect::NEUTRAL1);
 				return;
 
 			case SnakeType::MenuGotoInfo:
-				stateStack.SchedulePushState(std::make_unique<InfoState>());
+				stateStack.PushState(std::make_unique<InfoState>());
 				PlaySoundEffect(SoundEffect::NEUTRAL1);
 				return;
 
 			case SnakeType::MenuGotoMenu:
-				stateStack.SchedulePushState(std::make_unique<MenuState>());
+				stateStack.PushState(std::make_unique<MenuState>());
 				PlaySoundEffect(SoundEffect::NEUTRAL1);
 				return;
 

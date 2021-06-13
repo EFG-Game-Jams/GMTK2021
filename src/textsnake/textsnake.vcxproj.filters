@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{f6ff3743-e020-42c0-a967-b0e72a23fbda}</UniqueIdentifier>
     </Filter>
@@ -43,6 +39,18 @@
     <Filter Include="Source Files\Enums">
       <UniqueIdentifier>{10b0455c-db79-4295-a778-635c65662d0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Overlays">
+      <UniqueIdentifier>{20febd06-4e43-41fc-82ef-1d8fc430b86b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Overlays">
+      <UniqueIdentifier>{19391d64-3ad8-406f-bf57-76004714d973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Messages">
+      <UniqueIdentifier>{32049522-f386-45dd-9f41-3e5f29424243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Messages">
+      <UniqueIdentifier>{c9e4cd78-5825-4ee1-837c-a5190704ba95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.hpp">
@@ -52,12 +60,6 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="menustate.hpp">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="messagestate.hpp">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="pausestate.hpp">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="statestack.hpp">
@@ -83,9 +85,6 @@
     </ClInclude>
     <ClInclude Include="clipboard.hpp">
       <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="gameoverstate.hpp">
-      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="basesnake.hpp">
       <Filter>Header Files\Snakes</Filter>
@@ -141,7 +140,7 @@
     <ClInclude Include="levelstate.hpp">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="pendingstackaction.h">
+    <ClInclude Include="pendingstackaction.hpp">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
     <ClInclude Include="snakefactory.hpp">
@@ -149,6 +148,24 @@
     </ClInclude>
     <ClInclude Include="soundeffect.hpp">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="gameoveroverlay.hpp">
+      <Filter>Header Files\Overlays</Filter>
+    </ClInclude>
+    <ClInclude Include="messageoverlay.hpp">
+      <Filter>Header Files\Overlays</Filter>
+    </ClInclude>
+    <ClInclude Include="scoreoverlay.hpp">
+      <Filter>Header Files\Overlays</Filter>
+    </ClInclude>
+    <ClInclude Include="messagebuffer.hpp">
+      <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="message.hpp">
+      <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="messagetype.hpp">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,16 +193,7 @@
     <ClCompile Include="noaisnake.cpp">
       <Filter>Source Files\Snakes</Filter>
     </ClCompile>
-    <ClCompile Include="gameoverstate.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="messagestate.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="menustate.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="pausestate.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="beepmanager.cpp">
@@ -247,6 +255,21 @@
     </ClCompile>
     <ClCompile Include="soundeffect.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="gameoveroverlay.cpp">
+      <Filter>Source Files\Overlays</Filter>
+    </ClCompile>
+    <ClCompile Include="messageoverlay.cpp">
+      <Filter>Source Files\Overlays</Filter>
+    </ClCompile>
+    <ClCompile Include="messagebuffer.cpp">
+      <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="message.cpp">
+      <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="scoreoverlay.cpp">
+      <Filter>Source Files\Overlays</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

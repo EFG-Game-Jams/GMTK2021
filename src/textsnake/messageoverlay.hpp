@@ -5,7 +5,7 @@
 #include <vector>
 #include <Windows.h>
 
-class MessageState : public State
+class MessageOverlay : public State
 {
 private:
 	std::vector<CHAR_INFO> characterBackup;
@@ -24,7 +24,7 @@ public:
 	void Focus() override;
 	void Destroy() override;
 
-	MessageState(COORD const _lineStartPosition,
+	MessageOverlay(COORD const _lineStartPosition,
 		SHORT const _maxLineLength,
 		std::string const & message,
 		Color::Color const & color);

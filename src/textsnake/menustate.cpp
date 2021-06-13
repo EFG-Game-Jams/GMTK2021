@@ -14,10 +14,13 @@ void MenuState::Focus()
 		return;
 	}
 
+	// Clear the screen
+	State::Focus();
+
 	COORD spawnLocation;
 
-	spawnLocation.X = Config::consoleBufferSize.X / 4;
-	spawnLocation.Y = Config::consoleBufferSize.Y / 2;
+	spawnLocation.X = Config::playAreaSize.X / 4;
+	spawnLocation.Y = Config::playAreaSize.Y / 2;
 	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 		spawnLocation,
 		MovingDirection::North,

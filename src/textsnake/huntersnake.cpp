@@ -40,7 +40,7 @@ MovingDirection HunterSnake::CalculateDesiredMovingDirection(std::vector<std::un
 	cy /= (int)blocks.size();
 
 	// find snake whose head is nearest to our center of mass
-	COORD fieldSize = Config::consoleBufferSize;
+	COORD fieldSize = Config::playAreaSize;
 	BaseSnake* nearestSnake = nullptr;
 	int nearestDistance = std::numeric_limits<int>::max();
 	for (auto const& snake : otherSnakes)

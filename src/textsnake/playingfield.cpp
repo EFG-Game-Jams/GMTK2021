@@ -5,9 +5,8 @@
 #include "randomsnake.hpp"
 #include "noaisnake.hpp"
 #include "huntersnake.hpp"
-#include "statestack.hpp"
-#include "gameoverstate.hpp"
 #include "soundeffect.hpp"
+#include "messagebuffer.hpp"
 
 CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) const
 {
@@ -117,8 +116,7 @@ bool PlayingField::HandlePlayerDeath(BaseSnake &deadSnake, BaseSnake &otherSnake
 	deadSnake.ForceFreeze();
 	otherSnake.ForceFreeze();
 
-	auto& stack = StateStack::GetInstance();
-	stack.SchedulePushState(std::make_unique<GameOverState>());
+	MessageBuffer::Publish(MessageType::PlayerKilled);
 
 	PlaySoundEffect(SoundEffect::TWINKLEBAD1);
 	
@@ -195,7 +193,7 @@ void PlayingField::UpdateCollisions()
 					(*otherSnake)->ForceFreeze();
 					{
 						auto & stack = StateStack::GetInstance();
-						stack.SchedulePushState(std::make_unique<GameOverState>());
+						stack.PushState(std::make_unique<GameOverOverlay>());
 					}
 					PlaySoundEffect(SoundEffect::TWINKLEBAD1);
 					// Stop doing updates

@@ -2,27 +2,31 @@
 #include "userinput.hpp"
 #include <memory>
 #include "state.hpp"
-#include "pendingstackaction.h"
+#include "pendingstackaction.hpp"
+#include <utility>
 
 class StateStack
 {
 private:
-	PendingStackAction pendingAction;
+	std::vector<std::unique_ptr<State>> toDelete;
 	std::vector<std::unique_ptr<State>> states;
-	State* activeState;
+	bool stackModified;
 
-	StateStack();
+	StateStack() = default;
 	~StateStack() = default;
+
+	std::size_t GetLastIndex() const;
+
+	void Delete(std::size_t const i);
 
 public:
 	void Clear();
 
-	void SchedulePushState(std::unique_ptr<State>&& state);
-	void SchedulePopState();
+	void PushState(std::unique_ptr<State>&& state);
+	void PopState();
 	std::size_t StateCount() const;
-	State* const GetActiveState();
 
-	void HandleScheduledAction();
+	void Update(unsigned const elapsedMs);
 
 	static StateStack & GetInstance();
 };
