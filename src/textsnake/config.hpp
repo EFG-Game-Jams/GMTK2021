@@ -18,8 +18,8 @@ namespace Config
 
 	unsigned const ticksPerClusterMove = 64;
 	unsigned const ticksPerClusterChangeOrientation = 400;
-	unsigned const clusterExplodeDistance = 20;
-	unsigned const clusterAttackDistance = 30;
+	unsigned const clusterExplodeDistance = 10;
+	unsigned const clusterAttackDistance = 20;
 	unsigned const clusterMergeDistance = 50;
 	unsigned const clusterMergeLengthLimit = 5;
 

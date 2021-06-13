@@ -62,10 +62,12 @@ MovingDirection ClusterSnake::CalculateDesiredMovingDirection(unsigned const ela
 			SnakeBlock block = blocks.back();
 			blocks.pop_back();
 			
-			std::unique_ptr<ClusterSnake> newSnake = std::make_unique<ClusterSnake>(std::vector<SnakeBlock>{ block }, clearColor);			
-			newSnake->elapsedSinceLastMovement -= elapsedMs; // this snake will get an update during this frame, let's make sure it stays in sync
-			newSnake->ChangeDirection(GetOrthogonalMovingDirection(block.direction));
+			block.direction = GetOrthogonalMovingDirection(block.direction);
+			if (Config::GetRandomDouble() < .5)
+				block.direction = GetOppositeMovingDirection(block.direction);
 
+			std::unique_ptr<ClusterSnake> newSnake = std::make_unique<ClusterSnake>(std::vector<SnakeBlock>{ block }, clearColor);			
+			newSnake->elapsedSinceLastMovement -= elapsedMs; // this snake will get an update during this frame, let's make sure it stays in sync	
 			otherSnakes.emplace_back(std::move(newSnake));
 		}
 		return movingDirection;
