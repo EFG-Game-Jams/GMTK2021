@@ -35,6 +35,7 @@ public:
 
 	virtual SnakeType GetType() const = 0;
 	std::vector<SnakeBlock> const& GetBlocks() const;
+	std::size_t const& GetSize() const;
 	SnakeBlock const& GetHead() const;
 	COORD GetNextHeadPosition() const;
 	MovingDirection GetMovingDirection() const;

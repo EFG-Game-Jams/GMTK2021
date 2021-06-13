@@ -58,6 +58,11 @@ std::vector<SnakeBlock> const& BaseSnake::GetBlocks() const
 	return blocks;
 }
 
+std::size_t const& BaseSnake::GetSize() const
+{
+	return blocks.size();
+}
+
 SnakeBlock const& BaseSnake::GetHead() const
 {
 	assert(blocks.size() > 0);

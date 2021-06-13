@@ -17,7 +17,7 @@ void GameOverOverlay::Update(unsigned const elapsedMs)
 
 GameOverOverlay::GameOverOverlay()
 	: MessageOverlay(
-		COORD{0, Config::consoleBufferSize.Y / 2},
+		COORD{0, Config::consoleBufferSize.Y / 2 - 1},
 		Config::consoleBufferSize.X,
 		"Game Over!",
 		Color::Color(Color::Foreground::WHITE, Color::Background::DARKRED))

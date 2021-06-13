@@ -134,9 +134,6 @@
     <ClInclude Include="snaketype.hpp">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="level.hpp">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="levelstate.hpp">
       <Filter>Header Files\States</Filter>
     </ClInclude>

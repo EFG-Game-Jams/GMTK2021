@@ -4,10 +4,16 @@
 #include "statestack.hpp"
 #include "snakefactory.hpp"
 #include "scoreoverlay.hpp"
+#include "messagebuffer.hpp"
 
 void TestState::Update(unsigned const elapsedMs)
 {
 	field.Update(elapsedMs);
+
+	if (field.snakes.size() == 1)
+	{
+		MessageBuffer::Publish(MessageType::LevelComplete);
+	}
 }
 
 void TestState::Destroy()

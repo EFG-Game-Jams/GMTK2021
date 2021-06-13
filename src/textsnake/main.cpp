@@ -1,20 +1,19 @@
 #include <algorithm>
 #include "game.hpp"
 #include <thread>
-#include "level.hpp"
 
 int main(int argc, char ** argv)
 {
-	Level level = Level::Unknown;
+	int level = -2;
 	if (argc == 3 && std::string(argv[1]).compare("/level") == 0)
 	{
 		if (std::string(argv[2]).compare("test") == 0)
 		{
-			level = Level::Test;
+			level = -1;
 		}
-		else if (std::string(argv[2]).compare("level0") == 0)
+		else
 		{
-			level = Level::Level0;
+			level = std::atoi(argv[2]);
 		}
 	}
 

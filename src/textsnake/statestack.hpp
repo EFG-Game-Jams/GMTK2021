@@ -17,8 +17,6 @@ private:
 
 	std::size_t GetLastIndex() const;
 
-	void Delete(std::size_t const i);
-
 public:
 	void Clear();
 

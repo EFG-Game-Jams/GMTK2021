@@ -37,7 +37,6 @@
     <ClInclude Include="cursor.hpp" />
     <ClInclude Include="huntersnake.hpp" />
     <ClInclude Include="infostate.hpp" />
-    <ClInclude Include="level.hpp" />
     <ClInclude Include="levelstate.hpp" />
     <ClInclude Include="menufield.hpp" />
     <ClInclude Include="menusnake.hpp" />

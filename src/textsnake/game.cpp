@@ -8,24 +8,21 @@
 #include <cassert>
 #include "messagebuffer.hpp"
 
-void Game::Reset(Level startupLevel)
+void Game::Reset(int level)
 {
 	stateStack.Clear();
 
-	switch (startupLevel)
+	if (level == -1)
 	{
-	case Level::Unknown:
-		stateStack.PushState(std::make_unique<MenuState>());
-		break;
-
-	case Level::Test:
 		stateStack.PushState(std::make_unique<TestState>());
-
-	case Level::Level0:
-		stateStack.PushState(std::make_unique<LevelState>(0));
-
-	default:
-		assert(false);
+	}
+	else if (level < 0)
+	{
+		stateStack.PushState(std::make_unique<MenuState>());
+	}
+	else
+	{
+		stateStack.PushState(std::make_unique<LevelState>(level));
 	}
 }
 
@@ -38,9 +35,9 @@ void Game::HandleInput()
 	}
 }
 
-void Game::Run(long long const targetFrameTime, Level startupLevel)
+void Game::Run(long long const targetFrameTime, int level)
 {
-	Reset(startupLevel);
+	Reset(level);
 
 	do
 	{
