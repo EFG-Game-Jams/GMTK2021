@@ -39,16 +39,10 @@ SnakeType PlayerSnake::GetType() const
 }
 
 PlayerSnake::PlayerSnake(
-	COORD const spawnPosition,
-	std::string const & letters,
+	std::vector<SnakeBlock> const& blocks,
 	Color::Color const clearColor)
 	: BaseSnake(
-		GenerateLineOfSnakeBlocks(
-			spawnPosition,
-			MovingDirection::North,
-			letters,
-			Config::playerHeadColor,
-			Config::playerBodyColor),
+		blocks,
 		Config::playerHeadColor,
 		Config::playerBodyColor,
 		clearColor),

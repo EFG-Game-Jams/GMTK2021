@@ -14,8 +14,7 @@ public:
 	virtual void CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes) override;
 
 	MenuSnake(
-		COORD const position,
-		std::string const & label,
+		std::vector<SnakeBlock> const& blocks,
 		SnakeType const type,
 		Color::Color clearColor);
 };

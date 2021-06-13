@@ -1,11 +1,9 @@
-
 #include "teststate.hpp"
 #include "config.hpp"
-#include "playersnake.hpp"
-#include "huntersnake.hpp"
 #include "userinput.hpp"
 #include "statestack.hpp"
 #include "pausestate.hpp"
+#include "snakefactory.hpp"
 
 void TestState::Update(unsigned const elapsedMs)
 {
@@ -46,11 +44,38 @@ void TestState::Focus()
 
 	spawnLocation.X = Config::consoleBufferSize.X / 2;
 	spawnLocation.Y = Config::consoleBufferSize.Y / 2;
-	field.snakes.emplace_back(std::make_unique<PlayerSnake>(spawnLocation, std::string("ABCDEFGHIJKLM"), clearColor));
+	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
+		spawnLocation,
+		MovingDirection::North,
+		"PLAYER"));
 
-	spawnLocation.X = static_cast<short>(Config::consoleBufferSize.X * 0.25);
-	spawnLocation.Y = static_cast<short>(Config::consoleBufferSize.Y * 0.75);
-	field.snakes.emplace_back(std::make_unique<HunterSnake>(GenerateLineOfSnakeBlocks(spawnLocation, MovingDirection::North, "A1B2C3", Config::hunterHeadColor, Config::hunterBodyColor), clearColor));
+	spawnLocation.X = 3;
+	spawnLocation.Y = 5;
+	field.snakes.emplace_back(SnakeFactory::CreateRandom(
+		spawnLocation,
+		MovingDirection::South,
+		"RANDOM"));
+	
+	spawnLocation.X = 65;
+	spawnLocation.Y = 15;
+	field.snakes.emplace_back(SnakeFactory::CreateNoAi(
+		spawnLocation,
+		MovingDirection::East,
+		"STATIC"));
+
+	spawnLocation.X = 30;
+	spawnLocation.Y = 15;
+	field.snakes.emplace_back(SnakeFactory::CreateHunter(
+		spawnLocation,
+		MovingDirection::West,
+		"AGGRO"));
+
+	spawnLocation.X = 30;
+	spawnLocation.Y = 15;
+	field.snakes.emplace_back(SnakeFactory::CreateRandom(
+		spawnLocation,
+		MovingDirection::West,
+		"RANDOM"));
 
 	spawnedSnakes = true;
 }

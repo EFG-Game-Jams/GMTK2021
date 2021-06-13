@@ -8,7 +8,7 @@ void GameOverState::Update(unsigned const elapsedMs)
 {
 	auto& evHandler = UserInput::GetInstance();
 
-	if (evHandler.WasActionReleased(PlayerActions::Action) || evHandler.WasActionReleased(PlayerActions::Escape))
+	if (evHandler.WasActionReleased(PlayerActions::Action))
 	{
 		auto& stateStack = StateStack::GetInstance();
 		stateStack.SchedulePushState(std::make_unique<MenuState>());

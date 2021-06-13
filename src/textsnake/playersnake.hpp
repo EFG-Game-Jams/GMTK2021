@@ -11,6 +11,8 @@ public:
 
 	SnakeType GetType() const override;
 
-	PlayerSnake(COORD const spawnPosition, std::string const & letters, Color::Color const clearColor);
+	PlayerSnake(
+		std::vector<SnakeBlock> const& blocks,
+		Color::Color const clearColor);
 };
 

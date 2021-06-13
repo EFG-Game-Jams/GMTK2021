@@ -77,7 +77,7 @@ void SetConsoleWindowSize(HANDLE conout, SHORT cols, SHORT rows)
 	mode &= ~ENABLE_WRAP_AT_EOL_OUTPUT;
 	SetConsoleMode(conout, mode);
 
-	SetConsoleTitle(L"Console Test");
+	SetConsoleTitle(L"Text Snake");
 }
 
 Game::Game()
@@ -94,6 +94,24 @@ Game::Game()
 	GetConsoleCursorInfo(stdoutHandle, &cursorInfo);
 	cursorInfo.bVisible = FALSE;
 	SetConsoleCursorInfo(stdoutHandle, &cursorInfo);
+
+	// Setup font
+	CONSOLE_FONT_INFOEX cfi;
+	memset(&cfi, 0, sizeof(CONSOLE_FONT_INFOEX));
+	cfi.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+	if (GetCurrentConsoleFontEx(stdoutHandle, FALSE, &cfi))
+	{
+		COORD size = GetConsoleFontSize(stdoutHandle, cfi.nFont);
+		cfi.dwFontSize.X = 20;
+		cfi.dwFontSize.Y = 20;
+
+		SetCurrentConsoleFontEx(stdoutHandle, FALSE, &cfi);
+	}
+	else
+	{
+		auto error = GetLastError();
+		std::cout << error;
+	}
 }
 
 Game::~Game()

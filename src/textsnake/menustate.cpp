@@ -1,7 +1,6 @@
 #include "config.hpp"
 #include "menustate.hpp"
-#include "playersnake.hpp"
-#include "menusnake.hpp"
+#include "snakefactory.hpp"
 
 void MenuState::Update(unsigned const elapsedMs)
 {
@@ -16,36 +15,32 @@ void MenuState::Focus()
 	}
 
 	COORD spawnLocation;
-	Color::Color clearColor;
 
 	spawnLocation.X = Config::consoleBufferSize.X / 4;
 	spawnLocation.Y = Config::consoleBufferSize.Y / 2;
-	field.snakes.emplace_back(std::make_unique<PlayerSnake>(
+	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 		spawnLocation,
-		std::string("PLAYER"),
-		clearColor));
+		MovingDirection::North,
+		"PLAYER"));
 
 	spawnLocation.X = 35;
 	spawnLocation.Y = Config::consoleBufferSize.Y / 4;
-	field.snakes.emplace_back(std::make_unique<MenuSnake>(
+	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Play game"),
-		SnakeType::MenuGotoPlay,
-		clearColor));
+		SnakeType::MenuGotoPlay));
 
 	spawnLocation.Y = Config::consoleBufferSize.Y / 3 + 2;
-	field.snakes.emplace_back(std::make_unique<MenuSnake>(
+	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Test level"),
-		SnakeType::MenuGotoTest,
-		clearColor));
+		SnakeType::MenuGotoTest));
 
 	spawnLocation.Y = Config::consoleBufferSize.Y / 3 + 4;
-	field.snakes.emplace_back(std::make_unique<MenuSnake>(
+	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Help"),
-		SnakeType::MenuGotoInfo,
-		clearColor));
+		SnakeType::MenuGotoInfo));
 
 	spawnedSnakes = true;
 }

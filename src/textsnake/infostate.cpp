@@ -1,8 +1,7 @@
 #include "infostate.hpp"
-#include "playersnake.hpp"
-#include "menusnake.hpp"
 #include "config.hpp"
 #include "cursor.hpp"
+#include "snakefactory.hpp"
 
 void InfoState::Update(unsigned const elapsedMs)
 {
@@ -23,20 +22,20 @@ void InfoState::Focus()
 	COORD spawnLocation;
 	Color::Color clearColor;
 
-	spawnLocation.X = 0;
-	spawnLocation.Y = Config::consoleBufferSize.Y / 2;
-	field.snakes.emplace_back(std::make_unique<PlayerSnake>(
+	spawnLocation.X = 10;
+	spawnLocation.Y = Config::consoleBufferSize.Y - 4;
+	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 		spawnLocation,
+		MovingDirection::East,
 		std::string("PLAYER"),
 		clearColor));
 
 	spawnLocation.X = 38;
 	spawnLocation.Y = Config::consoleBufferSize.Y - 2;
-	field.snakes.emplace_back(std::make_unique<MenuSnake>(
+	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Back"),
-		SnakeType::MenuGotoMenu,
-		clearColor));
+		SnakeType::MenuGotoMenu));
 
 	spawnedSnakes = true;
 

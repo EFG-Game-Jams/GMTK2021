@@ -13,17 +13,11 @@ void MenuSnake::CalculateNextMove(unsigned const elapsedMs, std::vector<std::uni
 }
 
 MenuSnake::MenuSnake(
-  COORD const position,
-  std::string const& label,
+  std::vector<SnakeBlock> const& blocks,
   SnakeType const _type,
   Color::Color clearColor)
   : BaseSnake(
-    GenerateLineOfSnakeBlocks(
-      position,
-      MovingDirection::West,
-      label,
-      Config::menuHeadColor,
-      Config::menuBodyColor),
+    blocks,
     Config::menuHeadColor,
     Config::menuBodyColor,
     clearColor),
