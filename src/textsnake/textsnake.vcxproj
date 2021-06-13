@@ -23,6 +23,7 @@
     <ClInclude Include="collisiontype.hpp" />
     <ClInclude Include="pendingstackaction.h" />
     <ClInclude Include="snakefactory.hpp" />
+    <ClInclude Include="soundeffect.hpp" />
     <ClInclude Include="state.hpp" />
     <ClInclude Include="beepmanager.hpp" />
     <ClInclude Include="clipboard.hpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="playingfield.cpp" />
     <ClCompile Include="snakeblock.cpp" />
     <ClCompile Include="snakefactory.cpp" />
+    <ClCompile Include="soundeffect.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="statestack.cpp" />
     <ClCompile Include="teststate.cpp" />

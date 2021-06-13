@@ -147,6 +147,9 @@
     <ClInclude Include="snakefactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="soundeffect.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -241,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="snakefactory.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="soundeffect.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
