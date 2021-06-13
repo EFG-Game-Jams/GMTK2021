@@ -8,7 +8,9 @@ struct PlayingField
 {
 protected:
 	CollisionType Collides(BaseSnake const& a, BaseSnake const& b) const;
-
+	
+	bool HandlePlayerDeath(BaseSnake& deadSnake, BaseSnake& otherSnake) const;
+	
 	virtual void UpdateCollisions();
 
 public:
