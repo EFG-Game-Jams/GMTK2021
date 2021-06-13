@@ -7,6 +7,7 @@
 #include "huntersnake.hpp"
 #include "statestack.hpp"
 #include "gameoverstate.hpp"
+#include "soundeffect.hpp"
 
 CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) const
 {
@@ -24,21 +25,11 @@ CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) con
 					return CollisionType::None;
 				}
 
-				if (b.GetType() == SnakeType::Player)
-				{
-					return CollisionType::PlayerKilled;
-				}
-
 				return CollisionType::HeadOnHead;
 			}
 
 			if (i == bblocks.size() - 1)
 			{
-				if (b.GetType() == SnakeType::Player)
-				{
-					return CollisionType::PlayerKilled;
-				}
-
 				if (&a == &b)
 				{
 					return CollisionType::CircleCreated;
@@ -135,45 +126,112 @@ void PlayingField::UpdateCollisions()
 					continue;
 				}
 
+				hadCollision = true;
+
 				// After this the snakes iteration is invalidated due to insertions and deletions!
 				switch (collisionType)
 				{
 				case CollisionType::HeadOnBody:
 				{
 					snakes.emplace_back(SplitOffTailAt(**otherSnake, snake->GetNextHeadPosition()));
+					PlaySoundEffect(SoundEffect::BAD1);
 				}
 				break;
 
 				case CollisionType::HeadOnHead:
-					(*otherSnake)->Reverse();
-					snake->Prepend(**otherSnake);
-					snakes.erase(otherSnake);
+					if (snake->GetBlocks().size() >= (*otherSnake)->GetBlocks().size())
+					{
+						if ((*otherSnake)->GetType() == SnakeType::Player)
+						{
+							snake->ForceFreeze();
+							(*otherSnake)->ForceFreeze();
+							{
+								auto& stack = StateStack::GetInstance();
+								stack.SchedulePushState(std::make_unique<GameOverState>());
+							}
+							PlaySoundEffect(SoundEffect::TWINKLEBAD1);
+							// Stop doing updates
+							return;
+						}
+						else
+						{
+							(*otherSnake)->Reverse();
+							snake->Prepend(**otherSnake);
+							snakes.erase(otherSnake);
+							PlaySoundEffect(SoundEffect::GOOD1);
+						}
+					}
+					else
+					{
+						snake->ForceFreeze();
+						hadCollision = false;
+					}
 					break;
 
 				case CollisionType::HeadOnTail:
-					snake->Prepend(**otherSnake);
-					snakes.erase(otherSnake);
+					if (snake->GetBlocks().size() >= (*otherSnake)->GetBlocks().size())
+					{
+						if ((*otherSnake)->GetType() == SnakeType::Player)
+						{
+							snake->ForceFreeze();
+							(*otherSnake)->ForceFreeze();
+							{
+								auto& stack = StateStack::GetInstance();
+								stack.SchedulePushState(std::make_unique<GameOverState>());
+							}
+							PlaySoundEffect(SoundEffect::TWINKLEBAD1);
+							// Stop doing updates
+							return;
+						}
+						else
+						{
+							snake->Prepend(**otherSnake);
+							snakes.erase(otherSnake);
+							PlaySoundEffect(SoundEffect::GOOD1);
+						}
+					}
+					else
+					{
+						snake->ForceFreeze();
+						hadCollision = false;
+					}
 					break;
 
-				case CollisionType::PlayerKilled:
+				/*case CollisionType::PlayerKilled:
 					snake->ForceFreeze();
 					(*otherSnake)->ForceFreeze();
 					{
 						auto & stack = StateStack::GetInstance();
 						stack.SchedulePushState(std::make_unique<GameOverState>());
 					}
+					PlaySoundEffect(SoundEffect::TWINKLEBAD1);
 					// Stop doing updates
-					return;
+					return;*/
 
 				case CollisionType::CircleCreated:
-					snake->ForceFreeze();
+					if (snake->GetType() == SnakeType::Player)
+					{
+						snake->ForceFreeze();
+						(*otherSnake)->ForceFreeze();
+						{
+							auto& stack = StateStack::GetInstance();
+							stack.SchedulePushState(std::make_unique<GameOverState>());
+						}
+						PlaySoundEffect(SoundEffect::TWINKLEBAD1);
+						// Stop doing updates
+						return;
+					}
+					else
+					{
+						snake->ForceFreeze();
+						hadCollision = false;
+					}
 					break;
 
 				default:
 					assert(false);
 				}
 
-				hadCollision = true;
 				break;
 			}
 

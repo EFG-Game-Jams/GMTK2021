@@ -58,6 +58,6 @@ std::unique_ptr<MenuSnake> SnakeFactory::CreateMenu(COORD const position, std::s
 			letters,
 			Config::menuHeadColor,
 			Config::menuBodyColor),
-		SnakeType::MenuGotoTest,
+		type,
 		Color::Color());
 }
