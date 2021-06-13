@@ -5,6 +5,7 @@
 #include "infostate.hpp"
 #include "levelstate.hpp"
 #include "soundeffect.hpp"
+#include <cassert>
 
 void MenuField::UpdateCollisions()
 {
@@ -14,34 +15,33 @@ void MenuField::UpdateCollisions()
 		{
 			auto& stateStack = StateStack::GetInstance();
 
-			snakes[0]->ForceFreeze();
-
 			auto const snakeType = (snakes[i])->GetType();
 			switch (snakeType)
 			{
 			case SnakeType::MenuGotoPlay:
 				stateStack.PushState(std::make_unique<LevelState>(0));
-				PlaySoundEffect(SoundEffect::NEUTRAL1);
-				return;
+				break;
 
 			case SnakeType::MenuGotoTest:
 				stateStack.PushState(std::make_unique<TestState>());
-				PlaySoundEffect(SoundEffect::NEUTRAL1);
-				return;
+				break;
 
 			case SnakeType::MenuGotoInfo:
 				stateStack.PushState(std::make_unique<InfoState>());
-				PlaySoundEffect(SoundEffect::NEUTRAL1);
-				return;
+				break;
 
 			case SnakeType::MenuGotoMenu:
 				stateStack.PushState(std::make_unique<MenuState>());
-				PlaySoundEffect(SoundEffect::NEUTRAL1);
-				return;
+				break;
 
 			default:
+				assert(false);
 				break;
 			}
+
+			PlaySoundEffect(SoundEffect::NEUTRAL1);
+			for (auto const& snake : snakes)
+				snake->ForceFreeze();
 		}
 	}
 }

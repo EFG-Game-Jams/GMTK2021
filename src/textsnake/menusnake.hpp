@@ -7,6 +7,10 @@ class MenuSnake : public BaseSnake
 {
 private:
 	SnakeType type;
+	
+	unsigned elapsedSinceLastTick;
+	unsigned drift;
+	int driftDirection;
 
 public:
 	virtual SnakeType GetType() const override;

@@ -9,7 +9,29 @@ SnakeType MenuSnake::GetType() const
 
 void MenuSnake::CalculateNextMove(unsigned const elapsedMs, std::vector<std::unique_ptr<BaseSnake>>& otherSnakes)
 {
-  return;
+    elapsedSinceLastTick += elapsedMs;
+    if (elapsedSinceLastTick >= Config::ticksPerPlayerMove)
+    {
+        elapsedSinceLastTick = 0;
+
+        if (Config::GetRandomDouble() <= Config::menuMoveProbability)
+        {
+            if (driftDirection > 0 && drift >= Config::menuMaxDriftDistance)
+            {
+                // turn around to drift back
+                driftDirection = -1;
+                Reverse();
+            }
+            else
+            {
+                nextMove = GetTranslateOffsetByCurrentDirection();
+                drift += driftDirection;
+                if (driftDirection < 0 && drift == 0)
+                    driftDirection = 1; // at center, now drifting away
+            }
+        }
+    }
+    return;
 }
 
 MenuSnake::MenuSnake(
@@ -21,6 +43,9 @@ MenuSnake::MenuSnake(
     Config::menuHeadColor,
     Config::menuBodyColor,
     clearColor),
-  type(_type)
+  type(_type),
+  elapsedSinceLastTick(0), driftDirection(1), drift(0)
 {
+    if (Config::GetRandomDouble() < .5)
+        Reverse();
 }

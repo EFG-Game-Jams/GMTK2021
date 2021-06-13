@@ -16,6 +16,10 @@ namespace Config
 	unsigned const ticksPerHunterMove = 64;
 	unsigned const ticksPerHunterChangeOrientation = 400;
 
+	unsigned const ticksPerMenuMove = 64;
+	unsigned const menuMaxDriftDistance = 6;
+	double const menuMoveProbability = .2;
+
 	Color::Color const scoreBoardColor{ Color::Foreground::WHITE, Color::Background::BLUE };
 
 	Color::Color const playerHeadColor{ Color::Foreground::YELLOW, Color::Background::DARKYELLOW };
