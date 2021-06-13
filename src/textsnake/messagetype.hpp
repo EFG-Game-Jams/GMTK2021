@@ -3,9 +3,9 @@
 enum class MessageType
 {
 	All,
-	TogglePause,
 	PlayerKilled,
 	LevelComplete,
 	ScoreGained,
-	LoadNextLevel
+	ReloadLevel,
+	LevelLoaded,
 };

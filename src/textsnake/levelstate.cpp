@@ -4,6 +4,7 @@
 #include "config.hpp"
 #include "scoreoverlay.hpp"
 #include "cursor.hpp"
+#include "messagebuffer.hpp"
 
 void LevelState::LoadLevel()
 {
@@ -75,7 +76,7 @@ void LevelState::LoadLevel()
 	case 3:
 		field.allowNoAi = false;
 		field.allowRandom = true;
-		field.allowHunter = false;
+		field.allowHunter = true;
 
 		field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 			COORD{ Config::playAreaSize.X / 2, Config::playAreaSize.Y / 2 },
@@ -100,17 +101,27 @@ void LevelState::LoadLevel()
 
 	assert(field.snakes[0]->GetType() == SnakeType::Player);
 	assert(field.allowHunter || field.allowNoAi || field.allowRandom);
+
+	MessageBuffer::Publish(MessageType::LevelLoaded, level);
 }
 
 void LevelState::Update(unsigned const elapsedMs)
 {
+	auto const reloadRequested = MessageBuffer::Consume(lastConsumeTime, MessageType::ReloadLevel).size() > 0;
+	lastConsumeTime = std::chrono::steady_clock::now();
+	if (reloadRequested)
+	{
+		LoadLevel();
+		return;
+	}
+
 	field.Update(elapsedMs);
 
 	if (field.snakes.size() == 1 && field.snakes[0]->GetType() == SnakeType::Player)
 	{
 		++level;
 		LoadLevel();
-		// Goto next level
+		return;
 	}
 }
 
@@ -134,6 +145,7 @@ void LevelState::Focus()
 
 LevelState::LevelState(int _level)
 	: level(_level),
-	loaded(false)
+	loaded(false),
+	lastConsumeTime(std::chrono::steady_clock::now())
 {
 }

@@ -300,17 +300,6 @@ void PlayingField::UpdateCollisions()
 					}
 					break;
 
-				/*case CollisionType::PlayerKilled:
-					snake->ForceFreeze();
-					(*otherSnake)->ForceFreeze();
-					{
-						auto & stack = StateStack::GetInstance();
-						stack.PushState(std::make_unique<GameOverOverlay>());
-					}
-					PlaySoundEffect(SoundEffect::TWINKLEBAD1);
-					// Stop doing updates
-					return;*/
-
 				case CollisionType::CircleCreated:
 					if (HandlePlayerDeath(*snake, *snake))
 						return;

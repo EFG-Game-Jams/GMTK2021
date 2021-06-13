@@ -45,11 +45,6 @@ void ScoreOverlay::Update(unsigned const elapsedMs)
 	{
 		switch (message->GetType())
 		{
-		case MessageType::TogglePause:
-			isPaused = !isPaused;
-			DrawPause();
-			break;
-
 		case MessageType::PlayerKilled:
 			isPaused = true;
 			StateStack::GetInstance().PushState(std::make_unique<GameOverOverlay>());
@@ -63,6 +58,11 @@ void ScoreOverlay::Update(unsigned const elapsedMs)
 		case MessageType::ScoreGained:
 			score += message->GetPayload();
 			DrawScore();
+			break;
+
+		case MessageType::ReloadLevel:
+			isPaused = false;
+			DrawPause();
 			break;
 
 		default:

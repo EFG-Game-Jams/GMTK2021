@@ -10,5 +10,6 @@ enum class SnakeType
 	MenuGotoTest,
 	MenuGotoInfo,
 	MenuGotoPlay,
-	MenuGotoMenu
+	MenuGotoMenu,
+	MenuRequestReload
 };

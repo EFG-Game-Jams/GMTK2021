@@ -6,6 +6,7 @@
 #include "levelstate.hpp"
 #include "soundeffect.hpp"
 #include <cassert>
+#include "messagebuffer.hpp"
 
 void MenuField::UpdateCollisions()
 {
@@ -32,6 +33,10 @@ void MenuField::UpdateCollisions()
 
 			case SnakeType::MenuGotoMenu:
 				stateStack.PushState(std::make_unique<MenuState>());
+				break;
+
+			case SnakeType::MenuRequestReload:
+				MessageBuffer::Publish(MessageType::ReloadLevel);
 				break;
 
 			default:
