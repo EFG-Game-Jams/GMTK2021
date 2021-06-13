@@ -19,6 +19,7 @@ public:
 	bool allowNoAi;
 	bool allowRandom;
 	bool allowHunter;
+	bool allowCluster;
 
 	std::vector<std::unique_ptr<BaseSnake>> snakes;
 
@@ -27,5 +28,6 @@ public:
 	PlayingField(
 		bool allowNoAi = true,
 		bool allowRandom = true,
-		bool allowHunter = true);
+		bool allowHunter = true,
+		bool allowCluster = true);
 };

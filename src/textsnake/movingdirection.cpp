@@ -25,3 +25,23 @@ bool IsOppositeMovingDirection(MovingDirection a, MovingDirection b)
 {
 	return GetOppositeMovingDirection(a) == b;
 }
+
+MovingDirection GetOrthogonalMovingDirection(MovingDirection d)
+{
+	switch (d)
+	{
+	case MovingDirection::North:
+		return MovingDirection::East;
+
+	case MovingDirection::East:
+		return MovingDirection::South;
+
+	case MovingDirection::South:
+		return MovingDirection::West;
+
+	case MovingDirection::West:
+		return MovingDirection::North;
+	}
+
+	assert(false);
+}

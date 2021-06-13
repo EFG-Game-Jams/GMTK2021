@@ -5,6 +5,7 @@
 #include "randomsnake.hpp"
 #include "noaisnake.hpp"
 #include "huntersnake.hpp"
+#include "clustersnake.hpp"
 #include "soundeffect.hpp"
 #include "messagebuffer.hpp"
 
@@ -62,6 +63,7 @@ SnakeType PlayingField::GetTailSnakeType(SnakeType const sourceType)
 	double randomChance = 0.0;
 	double noAiChance = 0.0;
 	double hunterChance = 0.0;
+	double clusterChance = 0.0;
 
 	// ADD new snake types here
 	switch (sourceType)
@@ -88,6 +90,12 @@ SnakeType PlayingField::GetTailSnakeType(SnakeType const sourceType)
 		randomChance = 5.0;
 		break;
 
+	case SnakeType::Cluster:
+		clusterChance = 20.0;
+		hunterChance = 5.0;
+		randomChance = 1.0;
+		break;
+
 	default:
 		assert(false);
 		break;
@@ -97,14 +105,16 @@ SnakeType PlayingField::GetTailSnakeType(SnakeType const sourceType)
 	randomChance *= allowRandom ? 1.0 : 0.0;
 	noAiChance *= allowNoAi ? 1.0 : 0.0;
 	hunterChance *= allowHunter ? 1.0 : 0.0;
+	clusterChance *= allowCluster ? 1.0 : 0.0;
 
 	// ADD new snake types here
-	double const cumulative = randomChance + noAiChance + hunterChance;
+	double const cumulative = randomChance + noAiChance + hunterChance + clusterChance;
 
 	// ADD new snake types here
 	randomChance /= cumulative;
 	noAiChance /= cumulative;
 	hunterChance /= cumulative;
+	clusterChance /= cumulative;
 
 	double total = randomChance;
 	if (Config::GetRandomDouble() < total)
@@ -122,6 +132,12 @@ SnakeType PlayingField::GetTailSnakeType(SnakeType const sourceType)
 	if (Config::GetRandomDouble() < total)
 	{
 		return SnakeType::Hunter;
+	}
+
+	total += clusterChance;
+	if (Config::GetRandomDouble() < total)
+	{
+		return SnakeType::Cluster;
 	}
 
 	// ADD new snake types here
@@ -168,6 +184,10 @@ std::unique_ptr<BaseSnake> PlayingField::SplitOffTailAt(BaseSnake& snake, COORD 
 
 	case SnakeType::Hunter:
 		newSnake = std::make_unique<HunterSnake>(newSnakeBlocks, snake.GetClearColor());
+		break;
+
+	case SnakeType::Cluster:
+		newSnake = std::make_unique<ClusterSnake>(newSnakeBlocks, snake.GetClearColor());
 		break;
 	}
 
@@ -315,9 +335,9 @@ void PlayingField::UpdateCollisions()
 
 void PlayingField::Update(unsigned const elapsedMs)
 {
-	for (auto& snake : snakes)
+	for (int i = 0; i < snakes.size(); ++i)
 	{
-		snake->CalculateNextMove(elapsedMs, snakes);
+		snakes[i]->CalculateNextMove(elapsedMs, snakes);
 	}
 
 	UpdateCollisions();
@@ -331,9 +351,11 @@ void PlayingField::Update(unsigned const elapsedMs)
 PlayingField::PlayingField(
 	bool _allowNoAi,
 	bool _allowRandom,
-	bool _allowHunter)
+	bool _allowHunter,
+	bool _allowCluster)
 	: allowNoAi(_allowNoAi),
 	allowRandom(_allowRandom),
-	allowHunter(_allowHunter)
+	allowHunter(_allowHunter),
+	allowCluster(_allowCluster)
 {
 }

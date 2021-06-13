@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basesnake.hpp" />
+    <ClInclude Include="clustersnake.hpp" />
     <ClInclude Include="collisiontype.hpp" />
     <ClInclude Include="message.hpp" />
     <ClInclude Include="messagebuffer.hpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="basesnake.cpp" />
     <ClCompile Include="beepmanager.cpp" />
     <ClCompile Include="clipboard.cpp" />
+    <ClCompile Include="clustersnake.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="coordops.cpp" />

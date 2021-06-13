@@ -1,6 +1,18 @@
 #include "snakefactory.hpp"
 #include "config.hpp"
 
+std::unique_ptr<ClusterSnake> SnakeFactory::CreateCluster(COORD const position, MovingDirection const orientation, std::string const& letters, Color::Color const clearColor)
+{
+	return std::make_unique<ClusterSnake>(
+		GenerateLineOfSnakeBlocks(
+			position,
+			orientation,
+			letters,
+			Config::hunterHeadColor,
+			Config::hunterBodyColor),
+		clearColor);
+}
+
 std::unique_ptr<HunterSnake> SnakeFactory::CreateHunter(COORD const position, MovingDirection const orientation, std::string const & letters, Color::Color const clearColor)
 {
 	return std::make_unique<HunterSnake>(

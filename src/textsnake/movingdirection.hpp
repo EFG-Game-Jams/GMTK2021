@@ -10,3 +10,5 @@ enum class MovingDirection
 
 MovingDirection GetOppositeMovingDirection(MovingDirection d);
 bool IsOppositeMovingDirection(MovingDirection a, MovingDirection b);
+
+MovingDirection GetOrthogonalMovingDirection(MovingDirection d);

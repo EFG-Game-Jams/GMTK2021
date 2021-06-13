@@ -53,7 +53,11 @@ void TestState::Focus()
 	
 	spawnLocation.X = 65;
 	spawnLocation.Y = 15;
-	field.snakes.emplace_back(SnakeFactory::CreateNoAi(
+	field.snakes.emplace_back(SnakeFactory::CreateCluster(
+		spawnLocation,
+		MovingDirection::East,
+		"BOOM!"));
+/*	field.snakes.emplace_back(SnakeFactory::CreateNoAi(
 		spawnLocation,
 		MovingDirection::East,
 		"STATIC"));
@@ -70,7 +74,7 @@ void TestState::Focus()
 	field.snakes.emplace_back(SnakeFactory::CreateRandom(
 		spawnLocation,
 		MovingDirection::West,
-		"RANDOM"));
+		"RANDOM"));*/
 
 	spawnedSnakes = true;
 

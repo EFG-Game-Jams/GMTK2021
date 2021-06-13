@@ -164,6 +164,9 @@
     <ClInclude Include="messagetype.hpp">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="clustersnake.hpp">
+      <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -267,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="scoreoverlay.cpp">
       <Filter>Source Files\Overlays</Filter>
+    </ClCompile>
+    <ClCompile Include="clustersnake.cpp">
+      <Filter>Source Files\Snakes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

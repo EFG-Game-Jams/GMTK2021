@@ -16,6 +16,13 @@ namespace Config
 	unsigned const ticksPerHunterMove = 64;
 	unsigned const ticksPerHunterChangeOrientation = 400;
 
+	unsigned const ticksPerClusterMove = 64;
+	unsigned const ticksPerClusterChangeOrientation = 400;
+	unsigned const clusterExplodeDistance = 20;
+	unsigned const clusterAttackDistance = 30;
+	unsigned const clusterMergeDistance = 50;
+	unsigned const clusterMergeLengthLimit = 5;
+
 	unsigned const ticksPerMenuMove = 64;
 	unsigned const menuMaxDriftDistance = 6;
 	double const menuMoveProbability = .2;
@@ -36,6 +43,10 @@ namespace Config
 
 	Color::Color const hunterHeadColor{ Color::Foreground::YELLOW, Color::Background::RED };
 	Color::Color const hunterBodyColor{ Color::Foreground::RED, Color::Background::DARKRED };
+
+	Color::Color const clusterHeadColorDefault{ Color::Foreground::RED, Color::Background::DARKYELLOW };
+	Color::Color const clusterHeadColorAttacking{ Color::Foreground::RED, Color::Background::YELLOW };
+	Color::Color const clusterBodyColor{ Color::Foreground::DARKRED, Color::Background::DARKYELLOW };
 
 	Color::Color const menuHeadColor{ Color::Foreground::BLACK, Color::Background::WHITE };
 	Color::Color const menuBodyColor{ Color::Foreground::BLACK, Color::Background::GRAY };
