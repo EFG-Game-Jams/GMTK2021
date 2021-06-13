@@ -20,6 +20,12 @@ namespace Config
 	unsigned const menuMaxDriftDistance = 6;
 	double const menuMoveProbability = .2;
 
+	unsigned const scoreSplit = 5;
+	unsigned const scoreConsumeHeadBase = 10;
+	unsigned const scoreConsumeHeadBlock = 1;
+	unsigned const scoreConsumeTailBase = 100;
+	unsigned const scoreConsumeTailBlock = 10;
+
 	Color::Color const scoreBoardColor{ Color::Foreground::WHITE, Color::Background::BLUE };
 
 	Color::Color const playerHeadColor{ Color::Foreground::YELLOW, Color::Background::DARKYELLOW };

@@ -148,6 +148,9 @@ void PlayingField::UpdateCollisions()
 				{
 				case CollisionType::HeadOnBody:
 				{
+					if (snake->GetType() == SnakeType::Player)
+						MessageBuffer::Publish(MessageType::ScoreGained, Config::scoreSplit);
+
 					snakes.emplace_back(SplitOffTailAt(**otherSnake, snake->GetNextHeadPosition()));
 					PlaySoundEffect(SoundEffect::BAD1);
 				}
@@ -158,7 +161,10 @@ void PlayingField::UpdateCollisions()
 					{
 						if (HandlePlayerDeath(**otherSnake, *snake))
 							return;
-		
+
+						if (snake->GetType() == SnakeType::Player)
+							MessageBuffer::Publish(MessageType::ScoreGained, Config::scoreConsumeHeadBase + Config::scoreConsumeHeadBlock * (*otherSnake)->GetBlocks().size());
+
 						(*otherSnake)->Reverse();
 						snake->Prepend(**otherSnake);
 						snakes.erase(otherSnake);
@@ -176,6 +182,9 @@ void PlayingField::UpdateCollisions()
 					{
 						if (HandlePlayerDeath(**otherSnake, *snake))
 							return;
+
+						if (snake->GetType() == SnakeType::Player)
+							MessageBuffer::Publish(MessageType::ScoreGained, Config::scoreConsumeTailBase + Config::scoreConsumeTailBlock * (*otherSnake)->GetBlocks().size());
 
 						snake->Prepend(**otherSnake);
 						snakes.erase(otherSnake);
