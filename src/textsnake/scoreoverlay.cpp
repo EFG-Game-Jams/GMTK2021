@@ -5,6 +5,7 @@
 #include "config.hpp"
 #include "cursor.hpp"
 #include <cstdio>
+#include "soundeffect.hpp"
 
 void ScoreOverlay::DrawScore() const
 {
@@ -56,6 +57,7 @@ void ScoreOverlay::Update(unsigned const elapsedMs)
 
 		case MessageType::LevelComplete:
 			isPaused = true;
+			PlaySoundEffect(SoundEffect::TWINKLEGOOD1);
 			break;
 
 		case MessageType::ScoreGained:
@@ -72,6 +74,7 @@ void ScoreOverlay::Update(unsigned const elapsedMs)
 	if (userInput.WasActionPressed(PlayerActions::Pause))
 	{
 		isPaused = !isPaused;
+		DrawPause();
 		return;
 	}
 }
