@@ -58,7 +58,7 @@ std::vector<SnakeBlock> const& BaseSnake::GetBlocks() const
 	return blocks;
 }
 
-std::size_t const& BaseSnake::GetSize() const
+std::size_t const BaseSnake::GetSize() const
 {
 	return blocks.size();
 }
