@@ -22,10 +22,6 @@ void StateStack::Clear()
 		toDelete.push_back(std::move(*iter));
 	}
 	states.clear();
-
-	// Fix weird runtime bug outside of VS console
-	std::cout << Color::Color();
-	system("cls");
 }
 
 void StateStack::PushState(std::unique_ptr<State>&& state)
