@@ -5,8 +5,8 @@
 #include "menustate.hpp"
 #include "snakefactory.hpp"
 #include "cursor.hpp"
-#include "messagebuffer.hpp"
 #include "statestack.hpp"
+#include "globalgamestate.hpp"
 
 void GameOverOverlay::LoadMenu()
 {

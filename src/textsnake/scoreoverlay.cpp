@@ -1,11 +1,11 @@
 #include "scoreoverlay.hpp"
-#include "messagebuffer.hpp"
 #include "statestack.hpp"
 #include "gameoveroverlay.hpp"
 #include "config.hpp"
 #include "cursor.hpp"
 #include <cstdio>
 #include "soundeffect.hpp"
+#include "globalgamestate.hpp"
 
 void ScoreOverlay::DrawScore() const
 {
@@ -26,6 +26,12 @@ void ScoreOverlay::DrawPause() const
 	}
 }
 
+void ScoreOverlay::DrawCurrentLevel() const
+{
+	std::cout << COORD{ 15, Config::consoleBufferSize.Y - 1 } << Config::scoreBoardColor;
+	std::cout << "LEVEL: " << level;
+}
+
 bool ScoreOverlay::IsOverlay() const
 {
 	return true;
@@ -38,40 +44,33 @@ bool ScoreOverlay::UpdateBelow() const
 
 void ScoreOverlay::Update(unsigned const elapsedMs)
 {
-	auto messages = MessageBuffer::Consume(lastConsumeTime);
-	lastConsumeTime = std::chrono::steady_clock::now();
-
-	for (auto& message : messages)
+	auto const& state = GlobalGameState::Get();
+	if (!state.IsPlayerAlive() && !isPaused)
 	{
-		switch (message->GetType())
-		{
-		case MessageType::PlayerKilled:
-			isPaused = true;
-			StateStack::GetInstance().PushState(std::make_unique<GameOverOverlay>());
-			break;
-
-		case MessageType::LevelComplete:
-			isPaused = true;
-			PlaySoundEffect(SoundEffect::TWINKLEGOOD1);
-			break;
-
-		case MessageType::ScoreGained:
-			score += message->GetPayload();
-			DrawScore();
-			break;
-
-		case MessageType::ReloadLevel:
-			isPaused = false;
-			DrawPause();
-			break;
-
-		default:
-			break;
-		}
+		isPaused = true;
+		StateStack::GetInstance().PushState(std::make_unique<GameOverOverlay>());
+	}
+	else if (level != state.GetCurrentLevel())
+	{
+		level = state.GetCurrentLevel();
+		isPaused = true;
+		PlaySoundEffect(SoundEffect::TWINKLEGOOD1);
+		DrawCurrentLevel();
+		DrawPause();
+	}
+	else if (score != state.GetPlayerScore())
+	{
+		score = state.GetPlayerScore();
+		DrawScore();
+	}
+	else if (state.IsLevelReloadRequested())
+	{
+		isPaused = false;
+		DrawPause();
 	}
 
 	auto& userInput = UserInput::GetInstance();
-	if (userInput.WasActionPressed(PlayerActions::Pause))
+	if (state.IsPlayerAlive() && userInput.WasActionPressed(PlayerActions::Pause))
 	{
 		isPaused = !isPaused;
 		DrawPause();
@@ -89,15 +88,21 @@ void ScoreOverlay::Focus()
 
 	DrawScore();
 	DrawPause();
+	DrawCurrentLevel();
 }
 
 void ScoreOverlay::Destroy()
 {
 }
 
+unsigned ScoreOverlay::GetScore() const
+{
+	return score;
+}
+
 ScoreOverlay::ScoreOverlay()
-	: lastConsumeTime(std::chrono::steady_clock::now()),
-	isPaused(false),
-	score(0)
+	: isPaused(false),
+	score(GlobalGameState::Get().GetPlayerScore()),
+	level(GlobalGameState::Get().GetCurrentLevel())
 {
 }

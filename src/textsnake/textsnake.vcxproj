@@ -22,9 +22,7 @@
     <ClInclude Include="basesnake.hpp" />
     <ClInclude Include="clustersnake.hpp" />
     <ClInclude Include="collisiontype.hpp" />
-    <ClInclude Include="message.hpp" />
-    <ClInclude Include="messagebuffer.hpp" />
-    <ClInclude Include="messagetype.hpp" />
+    <ClInclude Include="globalgamestate.hpp" />
     <ClInclude Include="pendingstackaction.hpp" />
     <ClInclude Include="scoreoverlay.hpp" />
     <ClInclude Include="snakefactory.hpp" />
@@ -67,13 +65,12 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="coordops.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="globalgamestate.cpp" />
     <ClCompile Include="huntersnake.cpp" />
     <ClCompile Include="infostate.cpp" />
     <ClCompile Include="levelstate.cpp" />
     <ClCompile Include="menufield.cpp" />
     <ClCompile Include="menusnake.cpp" />
-    <ClCompile Include="message.cpp" />
-    <ClCompile Include="messagebuffer.cpp" />
     <ClCompile Include="noaisnake.cpp" />
     <ClCompile Include="randomsnake.cpp" />
     <ClCompile Include="event.cpp" />

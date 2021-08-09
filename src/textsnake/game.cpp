@@ -43,8 +43,6 @@ void Game::Run(long long const targetFrameTime, int level)
 	{
 		auto const start = std::chrono::steady_clock::now();
 
-		MessageBuffer::RemoveStaleMessages(100);
-
 		userInput.Update();
 		HandleInput();
 

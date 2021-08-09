@@ -45,12 +45,6 @@
     <Filter Include="Source Files\Overlays">
       <UniqueIdentifier>{19391d64-3ad8-406f-bf57-76004714d973}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Messages">
-      <UniqueIdentifier>{32049522-f386-45dd-9f41-3e5f29424243}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Messages">
-      <UniqueIdentifier>{c9e4cd78-5825-4ee1-837c-a5190704ba95}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.hpp">
@@ -155,17 +149,11 @@
     <ClInclude Include="scoreoverlay.hpp">
       <Filter>Header Files\Overlays</Filter>
     </ClInclude>
-    <ClInclude Include="messagebuffer.hpp">
-      <Filter>Header Files\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="message.hpp">
-      <Filter>Header Files\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="messagetype.hpp">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="clustersnake.hpp">
       <Filter>Header Files\Snakes</Filter>
+    </ClInclude>
+    <ClInclude Include="globalgamestate.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,17 +250,14 @@
     <ClCompile Include="messageoverlay.cpp">
       <Filter>Source Files\Overlays</Filter>
     </ClCompile>
-    <ClCompile Include="messagebuffer.cpp">
-      <Filter>Source Files\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="message.cpp">
-      <Filter>Source Files\Messages</Filter>
-    </ClCompile>
     <ClCompile Include="scoreoverlay.cpp">
       <Filter>Source Files\Overlays</Filter>
     </ClCompile>
     <ClCompile Include="clustersnake.cpp">
       <Filter>Source Files\Snakes</Filter>
+    </ClCompile>
+    <ClCompile Include="globalgamestate.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

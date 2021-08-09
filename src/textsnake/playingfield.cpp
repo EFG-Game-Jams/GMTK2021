@@ -7,7 +7,7 @@
 #include "huntersnake.hpp"
 #include "clustersnake.hpp"
 #include "soundeffect.hpp"
-#include "messagebuffer.hpp"
+#include "globalgamestate.hpp"
 
 CollisionType PlayingField::Collides(BaseSnake const& a, BaseSnake const& b) const
 {
@@ -208,7 +208,7 @@ bool PlayingField::HandlePlayerDeath(BaseSnake &deadSnake, BaseSnake &otherSnake
 	deadSnake.ForceFreeze();
 	otherSnake.ForceFreeze();
 
-	MessageBuffer::Publish(MessageType::PlayerKilled);
+	GlobalGameState::Get().KillPlayer();
 
 	PlaySoundEffect(SoundEffect::TWINKLEBAD1);
 	
@@ -246,7 +246,7 @@ void PlayingField::UpdateCollisions()
 					{
 						if (snake->GetType() == SnakeType::Player)
 						{
-							MessageBuffer::Publish(MessageType::ScoreGained, Config::scoreSplit);
+							GlobalGameState::Get().AddPlayerScore(Config::scoreSplit);
 						}
 
 						snakes.emplace_back(SplitOffTailAt(**otherSnake, snake->GetNextHeadPosition()));
@@ -266,7 +266,10 @@ void PlayingField::UpdateCollisions()
 							return;
 
 						if (snake->GetType() == SnakeType::Player)
-							MessageBuffer::Publish(MessageType::ScoreGained, Config::scoreConsumeHeadBase + Config::scoreConsumeHeadBlock * (*otherSnake)->GetBlocks().size());
+						{
+							unsigned const score = Config::scoreConsumeHeadBase + Config::scoreConsumeHeadBlock * (*otherSnake)->GetBlocks().size();
+							GlobalGameState::Get().AddPlayerScore(score);
+						}
 
 						(*otherSnake)->Reverse();
 						snake->Prepend(**otherSnake);
@@ -287,7 +290,10 @@ void PlayingField::UpdateCollisions()
 							return;
 
 						if (snake->GetType() == SnakeType::Player)
-							MessageBuffer::Publish(MessageType::ScoreGained, Config::scoreConsumeTailBase + Config::scoreConsumeTailBlock * (*otherSnake)->GetBlocks().size());
+						{
+							unsigned const score = Config::scoreConsumeTailBase + Config::scoreConsumeTailBlock * (*otherSnake)->GetBlocks().size();
+							GlobalGameState::Get().AddPlayerScore(score);
+						}
 
 						snake->Prepend(**otherSnake);
 						snakes.erase(otherSnake);

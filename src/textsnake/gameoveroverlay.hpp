@@ -6,7 +6,6 @@
 class GameOverOverlay : public MessageOverlay
 {
 private:
-	std::chrono::steady_clock::time_point lastConsumeTime;
 	unsigned elapsedTotal;
 	bool menuLoaded;
 	MenuField field;

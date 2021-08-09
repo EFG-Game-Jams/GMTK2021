@@ -6,6 +6,7 @@
 #include "color.hpp"
 #include "config.hpp"
 #include <cassert>
+#include "scoreoverlay.hpp"
 
 std::size_t StateStack::GetLastIndex() const
 {

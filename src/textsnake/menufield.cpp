@@ -6,7 +6,7 @@
 #include "levelstate.hpp"
 #include "soundeffect.hpp"
 #include <cassert>
-#include "messagebuffer.hpp"
+#include "globalgamestate.hpp"
 
 void MenuField::UpdateCollisions()
 {
@@ -20,6 +20,7 @@ void MenuField::UpdateCollisions()
 			switch (snakeType)
 			{
 			case SnakeType::MenuGotoPlay:
+				GlobalGameState::Get().Reset();
 				stateStack.PushState(std::make_unique<LevelState>(0));
 				break;
 
@@ -36,7 +37,7 @@ void MenuField::UpdateCollisions()
 				break;
 
 			case SnakeType::MenuRequestReload:
-				MessageBuffer::Publish(MessageType::ReloadLevel);
+				GlobalGameState::Get().RequestLevelReload();
 				break;
 
 			default:

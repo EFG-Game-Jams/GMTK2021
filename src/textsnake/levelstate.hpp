@@ -8,7 +8,6 @@ class LevelState : public State
 private:
 	int level;
 	bool loaded;
-	std::chrono::steady_clock::time_point lastConsumeTime;
 	PlayingField field;
 
 	void LoadLevel();

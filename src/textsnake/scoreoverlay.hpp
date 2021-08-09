@@ -5,12 +5,13 @@
 class ScoreOverlay : public State
 {
 private:
-	std::chrono::steady_clock::time_point lastConsumeTime;
 	bool isPaused;
 	unsigned score;
+	unsigned level;
 
 	void DrawScore() const;
 	void DrawPause() const;
+	void DrawCurrentLevel() const;
 
 public:
 	bool IsOverlay() const override;
@@ -18,6 +19,8 @@ public:
 	void Update(unsigned const elapsedMs) override;
 	void Focus() override;
 	void Destroy() override;
+
+	unsigned GetScore() const;
 
 	ScoreOverlay();
 };

@@ -4,7 +4,7 @@
 #include "config.hpp"
 #include "scoreoverlay.hpp"
 #include "cursor.hpp"
-#include "messagebuffer.hpp"
+#include "globalgamestate.hpp"
 
 void LevelState::LoadLevel()
 {
@@ -95,21 +95,19 @@ void LevelState::LoadLevel()
 		break;
 
 	default:
-		assert(false); // Win!
+		StateStack::GetInstance().PushState(std::make_unique<GameWinOverlay>());
 		return;
 	}
 
 	assert(field.snakes[0]->GetType() == SnakeType::Player);
 	assert(field.allowHunter || field.allowNoAi || field.allowRandom);
 
-	MessageBuffer::Publish(MessageType::LevelLoaded, level);
+	GlobalGameState::Get().LevelLoaded();
 }
 
 void LevelState::Update(unsigned const elapsedMs)
 {
-	auto const reloadRequested = MessageBuffer::Consume(lastConsumeTime, MessageType::ReloadLevel).size() > 0;
-	lastConsumeTime = std::chrono::steady_clock::now();
-	if (reloadRequested)
+	if (GlobalGameState::Get().IsLevelReloadRequested())
 	{
 		LoadLevel();
 		return;
@@ -119,7 +117,9 @@ void LevelState::Update(unsigned const elapsedMs)
 
 	if (field.snakes.size() == 1 && field.snakes[0]->GetType() == SnakeType::Player)
 	{
-		++level;
+		auto& state = GlobalGameState::Get();
+		state.AdvanceToNextLevel();
+		level = state.GetCurrentLevel();
 		LoadLevel();
 		return;
 	}
@@ -145,7 +145,6 @@ void LevelState::Focus()
 
 LevelState::LevelState(int _level)
 	: level(_level),
-	loaded(false),
-	lastConsumeTime(std::chrono::steady_clock::now())
+	loaded(false)
 {
 }
