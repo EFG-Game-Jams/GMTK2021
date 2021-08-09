@@ -1,3 +1,4 @@
+
 #pragma once
 #include <windows.h>
 #include <random>
@@ -10,20 +11,20 @@ namespace Config
 
 	unsigned const ticksPerPlayerMove = 64;
 
-	unsigned const ticksPerDumbMove = 64;
+	unsigned const ticksPerDumbMove = ticksPerPlayerMove;
 	unsigned const ticksPerDumbChangeOrientation = 800;
 
-	unsigned const ticksPerHunterMove = 64;
+	unsigned const ticksPerHunterMove = ticksPerPlayerMove;
 	unsigned const ticksPerHunterChangeOrientation = 400;
 
-	unsigned const ticksPerClusterMove = 64;
+	unsigned const ticksPerClusterMove = ticksPerPlayerMove;
 	unsigned const ticksPerClusterChangeOrientation = 400;
-	unsigned const clusterExplodeDistance = 10;
-	unsigned const clusterAttackDistance = 20;
+	unsigned const clusterExplodeDistance = 5;
+	unsigned const clusterAttackDistance = 7;
 	unsigned const clusterMergeDistance = 50;
 	unsigned const clusterMergeLengthLimit = 5;
 
-	unsigned const ticksPerMenuMove = 64;
+	unsigned const ticksPerMenuMove = ticksPerPlayerMove;
 	unsigned const menuMaxDriftDistance = 6;
 	double const menuMoveProbability = .2;
 
