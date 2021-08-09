@@ -24,10 +24,6 @@ void MenuField::UpdateCollisions()
 				stateStack.PushState(std::make_unique<LevelState>(0));
 				break;
 
-			case SnakeType::MenuGotoTest:
-				stateStack.PushState(std::make_unique<GameWinOverlay>());
-				break;
-
 			case SnakeType::MenuGotoInfo:
 				stateStack.PushState(std::make_unique<InfoState>());
 				break;

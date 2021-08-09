@@ -7,7 +7,6 @@ enum class SnakeType
 	Hunter,
 	Cluster,
 	Player,
-	MenuGotoTest,
 	MenuGotoInfo,
 	MenuGotoPlay,
 	MenuGotoMenu,
