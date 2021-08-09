@@ -4,6 +4,7 @@
 #include "config.hpp"
 #include "scoreoverlay.hpp"
 #include "cursor.hpp"
+#include "gamewinoverlay.hpp"
 #include "globalgamestate.hpp"
 
 void LevelState::LoadLevel()
@@ -24,6 +25,7 @@ void LevelState::LoadLevel()
 		field.allowNoAi = true;
 		field.allowRandom = false;
 		field.allowHunter = false;
+		field.allowCluster = false;
 
 		field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 			COORD{ Config::playAreaSize.X / 2, Config::playAreaSize.Y / 2 },
@@ -40,6 +42,7 @@ void LevelState::LoadLevel()
 		field.allowNoAi = true;
 		field.allowRandom = true;
 		field.allowHunter = false;
+		field.allowCluster = false;
 
 		field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 			COORD{ Config::playAreaSize.X / 2, Config::playAreaSize.Y / 2 },
@@ -61,6 +64,7 @@ void LevelState::LoadLevel()
 		field.allowNoAi = true;
 		field.allowRandom = true;
 		field.allowHunter = false;
+		field.allowCluster = false;
 
 		field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 			COORD{ Config::playAreaSize.X / 2, Config::playAreaSize.Y / 2 },
@@ -77,21 +81,49 @@ void LevelState::LoadLevel()
 		field.allowNoAi = false;
 		field.allowRandom = true;
 		field.allowHunter = true;
+		field.allowCluster = false;
 
 		field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 			COORD{ Config::playAreaSize.X / 2, Config::playAreaSize.Y / 2 },
 			MovingDirection::North,
 			"PLAYER"));
 
-		field.snakes.emplace_back(SnakeFactory::CreateRandom(
+		field.snakes.emplace_back(SnakeFactory::CreateHunter(
 			COORD{ Config::playAreaSize.X - 3, Config::playAreaSize.Y / 4 },
 			MovingDirection::East,
 			"ENEMY"));
 
-		field.snakes.emplace_back(SnakeFactory::CreateRandom(
+		field.snakes.emplace_back(SnakeFactory::CreateHunter(
 			COORD{ 2, 2 },
 			MovingDirection::West,
 			"ENEMY"));
+		break;
+
+	case 4:
+		field.allowNoAi = false;
+		field.allowRandom = true;
+		field.allowHunter = true;
+		field.allowCluster = true;
+
+		field.snakes.emplace_back(SnakeFactory::CreatePlayer(
+			COORD{ Config::playAreaSize.X / 2, Config::playAreaSize.Y / 2 },
+			MovingDirection::North,
+			"PLAYER"));
+
+		field.snakes.emplace_back(SnakeFactory::CreateCluster(
+			COORD{ Config::playAreaSize.X - 3, Config::playAreaSize.Y / 4 },
+			MovingDirection::East,
+			"BOSS SNAKE"));
+
+		field.snakes.emplace_back(SnakeFactory::CreateRandom(
+			COORD{ Config::playAreaSize.X / 5, Config::playAreaSize.Y / 2 },
+			MovingDirection::East,
+			"RANDOM"));
+
+		field.snakes.emplace_back(SnakeFactory::CreateRandom(
+			COORD{ Config::playAreaSize.X - 4, Config::playAreaSize.Y / 4 },
+			MovingDirection::South,
+			"RANDOM"));
 		break;
 
 	default:

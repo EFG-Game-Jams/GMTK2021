@@ -23,6 +23,7 @@
     <ClInclude Include="clustersnake.hpp" />
     <ClInclude Include="collisiontype.hpp" />
     <ClInclude Include="globalgamestate.hpp" />
+    <ClInclude Include="gamewinoverlay.hpp" />
     <ClInclude Include="pendingstackaction.hpp" />
     <ClInclude Include="scoreoverlay.hpp" />
     <ClInclude Include="snakefactory.hpp" />
@@ -52,7 +53,6 @@
     <ClInclude Include="snakeblock.hpp" />
     <ClInclude Include="snaketype.hpp" />
     <ClInclude Include="statestack.hpp" />
-    <ClInclude Include="teststate.hpp" />
     <ClInclude Include="userinput.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
@@ -65,6 +65,7 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="coordops.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="gamewinoverlay.cpp" />
     <ClCompile Include="globalgamestate.cpp" />
     <ClCompile Include="huntersnake.cpp" />
     <ClCompile Include="infostate.cpp" />
@@ -88,7 +89,6 @@
     <ClCompile Include="soundeffect.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="statestack.cpp" />
-    <ClCompile Include="teststate.cpp" />
     <ClCompile Include="userinput.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -176,6 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -204,6 +205,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

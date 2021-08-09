@@ -11,12 +11,14 @@ private:
 	std::vector<CHAR_INFO> characterBackup;
 	COORD const lineStartPosition;
 	SHORT const maxLineLength;
-	std::string message;
 	Color::Color color;
 
 	void RestoreContent();
 	void BackupContent();
 	void DrawMessage(std::string msg, Color::Color const& color) const;
+
+protected:
+	std::string message;
 
 public:
 	bool IsOverlay() const override;

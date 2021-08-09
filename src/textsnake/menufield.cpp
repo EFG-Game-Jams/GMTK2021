@@ -1,11 +1,11 @@
 #include "menufield.hpp"
 #include "statestack.hpp"
-#include "teststate.hpp"
 #include "menustate.hpp"
 #include "infostate.hpp"
 #include "levelstate.hpp"
 #include "soundeffect.hpp"
 #include <cassert>
+#include "gamewinoverlay.hpp"
 #include "globalgamestate.hpp"
 
 void MenuField::UpdateCollisions()
@@ -25,7 +25,7 @@ void MenuField::UpdateCollisions()
 				break;
 
 			case SnakeType::MenuGotoTest:
-				stateStack.PushState(std::make_unique<TestState>());
+				stateStack.PushState(std::make_unique<GameWinOverlay>());
 				break;
 
 			case SnakeType::MenuGotoInfo:

@@ -284,7 +284,9 @@ void PlayingField::UpdateCollisions()
 					break;
 
 				case CollisionType::HeadOnTail:
-					if (snake->GetSize() >= (*otherSnake)->GetSize())
+					if (snake->GetSize() >= (*otherSnake)->GetSize() ||
+						snake->GetType() == SnakeType::Cluster ||
+						snake->GetType() == SnakeType::Player)
 					{
 						if (HandlePlayerDeath(**otherSnake, *snake))
 							return;

@@ -21,20 +21,20 @@ void GameOverOverlay::LoadMenu()
 	COORD spawnLocation;
 
 	spawnLocation.X = Config::playAreaSize.X / 4;
-	spawnLocation.Y = Config::playAreaSize.Y / 2;
+	spawnLocation.Y = Config::playAreaSize.Y - 5;
 	field.snakes.emplace_back(SnakeFactory::CreatePlayer(
 		spawnLocation,
 		MovingDirection::North,
 		"PLAYER"));
 
-	spawnLocation.X = 10;
-	spawnLocation.Y = Config::consoleBufferSize.Y / 4;
+	spawnLocation.X = 20;
+	spawnLocation.Y = Config::consoleBufferSize.Y / 2 - 1;
 	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Retry"),
 		SnakeType::MenuRequestReload));
 
-	spawnLocation.X = 40;
+	spawnLocation.X = 50;
 	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Exit"),
@@ -60,9 +60,7 @@ void GameOverOverlay::Update(unsigned const elapsedMs)
 
 	// DANGEROUS ASSUMPTION: on reload this overlay needs to go, we just pop the last
 	// state expecting it to be ourselves
-	auto const reloadRequested = MessageBuffer::Consume(lastConsumeTime, MessageType::ReloadLevel).size() > 0;
-	lastConsumeTime = std::chrono::steady_clock::now();
-	if (reloadRequested)
+	if (GlobalGameState::Get().IsLevelReloadRequested())
 	{
 		StateStack::GetInstance().PopState();
 		return;
@@ -75,7 +73,6 @@ GameOverOverlay::GameOverOverlay()
 		Config::consoleBufferSize.X,
 		"Game Over!",
 		Color::Color(Color::Foreground::WHITE, Color::Background::DARKRED)),
-	lastConsumeTime(std::chrono::steady_clock::now()),
 	elapsedTotal(0),
 	menuLoaded(false)
 {

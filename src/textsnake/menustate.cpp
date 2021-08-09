@@ -33,13 +33,7 @@ void MenuState::Focus()
 		std::string("Play game"),
 		SnakeType::MenuGotoPlay));
 
-	spawnLocation.Y = Config::consoleBufferSize.Y / 3 + 2;
-	field.snakes.emplace_back(SnakeFactory::CreateMenu(
-		spawnLocation,
-		std::string("Test level"),
-		SnakeType::MenuGotoTest));
-
-	spawnLocation.Y = Config::consoleBufferSize.Y / 3 + 4;
+	spawnLocation.Y += 2;
 	field.snakes.emplace_back(SnakeFactory::CreateMenu(
 		spawnLocation,
 		std::string("Help"),

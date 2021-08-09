@@ -2,21 +2,15 @@
 #include "game.hpp"
 #include "menustate.hpp"
 #include "levelstate.hpp"
-#include "teststate.hpp"
 #include <thread>
 #include <Windows.h>
 #include <cassert>
-#include "messagebuffer.hpp"
 
 void Game::Reset(int level)
 {
 	stateStack.Clear();
 
-	if (level == -1)
-	{
-		stateStack.PushState(std::make_unique<TestState>());
-	}
-	else if (level < 0)
+	if (level < 0)
 	{
 		stateStack.PushState(std::make_unique<MenuState>());
 	}
