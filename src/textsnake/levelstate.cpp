@@ -11,7 +11,7 @@ void LevelState::LoadLevel()
 {
 	// Clear the screen
 	std::cout << COORD{ 0,0 } << Color::Color(); // Black
-	std::size_t const limit = (unsigned)Config::playAreaSize.X * (unsigned)Config::playAreaSize.Y;
+	std::size_t const limit = static_cast<unsigned>(Config::playAreaSize.X) * Config::playAreaSize.Y;
 	for (std::size_t i = 0; i < limit; ++i)
 	{
 		std::cout << ' ';
